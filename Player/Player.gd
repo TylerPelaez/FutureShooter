@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const PlayerGun = preload("res://Guns/PlayerGun.tscn")
+const PlayerGun = preload("res://Guns/Gun.tscn")
 
 export var ACCELERATION := 500
 export var MAX_SPEED := 100

@@ -1,9 +1,9 @@
 extends Sprite
 
-const DefaultProjectile = preload("res://Guns/PlayerProjectile.tscn")
+const DefaultProjectile = preload("res://Guns/Projectile.tscn")
 
 export var BULLET_SPEED := 500
-export var MAX_AMMO := 10
+export var MAX_AMMO := 2
 onready var ammoCount = MAX_AMMO
 
 onready var fireTimer = $FireTimer

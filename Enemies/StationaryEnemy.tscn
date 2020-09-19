@@ -10,9 +10,6 @@ points = PoolVector2Array( 0, 0, 150, -60, 150, 60 )
 [node name="StationaryEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="Hurtbox" parent="." index="2"]
-visible = false
-
 [node name="PlayerDetectionZone" parent="." index="4" instance=ExtResource( 3 )]
 VISION_RANGE = 150
 
