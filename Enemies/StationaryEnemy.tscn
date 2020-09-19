@@ -70,7 +70,7 @@ tracks/1/keys = {
 script = ExtResource( 2 )
 
 [node name="PlayerDetectionZone" parent="." index="3" instance=ExtResource( 3 )]
-VISION_RANGE = 150
+VISION_RANGE = 450
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 shape = SubResource( 1 )

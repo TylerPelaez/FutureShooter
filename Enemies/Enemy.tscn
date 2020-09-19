@@ -4,10 +4,10 @@
 [ext_resource path="res://Enemies/EnemyStats.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=4]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -16,14 +16,14 @@ script = ExtResource( 2 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
 visible = false
 collision_layer = 4
 
 [node name="Collider" parent="Hurtbox" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="EnemyStats" parent="." instance=ExtResource( 3 )]
 max_health = 2

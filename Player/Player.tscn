@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/PC_Torso.png" type="Texture" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://Player/PC_Head.png" type="Texture" id=5]
 [ext_resource path="res://Player/InputRecorder.gd" type="Script" id=6]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=11]
 radius = 8.0
 height = 0.0
 
@@ -48,7 +48,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=12]
 resource_name = "HoldingGunFiring"
 length = 0.2
 tracks/0/type = "value"
@@ -76,7 +76,7 @@ tracks/1/keys = {
 "values": [ 8.0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=13]
 resource_name = "HoldingGunIdle"
 length = 0.1
 loop = true
@@ -273,6 +273,7 @@ radius = 13.0
 collision_layer = 2
 collision_mask = 17
 script = ExtResource( 1 )
+AIM_SPEED = 2
 
 [node name="Recorder" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -297,7 +298,7 @@ texture = ExtResource( 5 )
 offset = Vector2( 0, -5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 11 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -315,8 +316,8 @@ anims/WalkingFeet = SubResource( 4 )
 
 [node name="TorsoAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "IdleTorso"
-anims/HoldingGunFiring = SubResource( 5 )
-anims/HoldingGunIdle = SubResource( 6 )
+anims/HoldingGunFiring = SubResource( 12 )
+anims/HoldingGunIdle = SubResource( 13 )
 anims/IdleTorso = SubResource( 7 )
 anims/WalkingTorso = SubResource( 8 )
 
