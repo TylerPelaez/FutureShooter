@@ -7,7 +7,6 @@
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 54.3947, 40.3789 )
-SPAWN_WITH_GUN = false
 
 [node name="CameraFollow" parent="Player" index="5"]
 remote_path = NodePath("../../Camera2D")

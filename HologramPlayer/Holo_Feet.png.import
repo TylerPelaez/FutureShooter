@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PC_WIP.png-fe5b400cb3ffeac83998da42d9900807.stex"
+path="res://.import/Holo_Feet.png-00e44978d3e3e49b14596410285cbd09.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/PC_WIP.png"
-dest_files=[ "res://.import/PC_WIP.png-fe5b400cb3ffeac83998da42d9900807.stex" ]
+source_file="res://HologramPlayer/Holo_Feet.png"
+dest_files=[ "res://.import/Holo_Feet.png-00e44978d3e3e49b14596410285cbd09.stex" ]
 
 [params]
 

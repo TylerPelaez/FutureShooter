@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/playerdev.png-661a5b9a709d73719436cf4c7fc29dd6.stex"
+path="res://.import/Holo_Head.png-73cd6992cc693af34e6ef68116162692.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/playerdev.png"
-dest_files=[ "res://.import/playerdev.png-661a5b9a709d73719436cf4c7fc29dd6.stex" ]
+source_file="res://HologramPlayer/Holo_Head.png"
+dest_files=[ "res://.import/Holo_Head.png-73cd6992cc693af34e6ef68116162692.stex" ]
 
 [params]
 

@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/PC_Torso.png" type="Texture" id=2]
+[ext_resource path="res://HologramPlayer/InputReplayer.gd" type="Script" id=1]
+[ext_resource path="res://HologramPlayer/Holo_Head.png" type="Texture" id=2]
 [ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Player/PC_Feet.png" type="Texture" id=4]
-[ext_resource path="res://Player/PC_Head.png" type="Texture" id=5]
-[ext_resource path="res://Player/InputRecorder.gd" type="Script" id=6]
+[ext_resource path="res://HologramPlayer/Holo_Torso.png" type="Texture" id=4]
+[ext_resource path="res://HologramPlayer/Holo_Feet.png" type="Texture" id=5]
+[ext_resource path="res://HologramPlayer/HologramPlayer.gd" type="Script" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
@@ -145,22 +145,22 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Hologram" type="KinematicBody2D"]
 collision_layer = 2
-script = ExtResource( 1 )
-
-[node name="Recorder" type="Node" parent="."]
 script = ExtResource( 6 )
+
+[node name="Replayer" type="Node" parent="."]
+script = ExtResource( 1 )
 
 [node name="FeetSprite" type="Sprite" parent="."]
 rotation = 1.5708
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 offset = Vector2( 0, -5 )
 hframes = 10
 
 [node name="TorsoSprite" type="Sprite" parent="."]
 rotation = 1.5708
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 offset = Vector2( 0, -5 )
 hframes = 10
 frame = 9
@@ -168,7 +168,7 @@ frame = 9
 [node name="HeadSprite" type="Sprite" parent="."]
 position = Vector2( -1, 0 )
 rotation = 1.5708
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
