@@ -4,6 +4,7 @@
 
 [node name="PlayerGun" type="Sprite"]
 script = ExtResource( 1 )
+MAX_AMMO = 100
 
 [node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.25

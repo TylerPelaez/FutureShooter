@@ -8,7 +8,7 @@
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 54.3947, 40.3789 )
 
-[node name="CameraFollow" parent="Player" index="2"]
+[node name="CameraFollow" parent="Player" index="4"]
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -18,7 +18,7 @@ process_mode = 0
 smoothing_enabled = true
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 89.2357, 104.389 )
+position = Vector2( 102.65, 107.55 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 176.788, 58.368 )
