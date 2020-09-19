@@ -2,12 +2,24 @@
 
 [ext_resource path="res://Guns/Gun.gd" type="Script" id=1]
 
-[node name="Gun" type="Sprite"]
+[node name="Gun" type="KinematicBody2D"]
+collision_layer = 32
 script = ExtResource( 1 )
+MAX_AMMO = 10
+
+[node name="Sprite" type="Sprite" parent="."]
 
 [node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 
 [node name="Muzzle" type="Position2D" parent="."]
-position = Vector2( 2, 0 )
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+disabled = true
+
+[node name="PickupRange" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="Collider" type="CollisionShape2D" parent="PickupRange"]

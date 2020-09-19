@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const PlayerGun = preload("res://Guns/Gun.tscn")
+const PlayerGun = preload("res://Guns/Pistol.tscn")
 
 export var ACCELERATION := 500
 export var MAX_SPEED := 100
@@ -9,6 +9,7 @@ export var SPAWN_WITH_GUN := true
 
 var velocity = Vector2.ZERO
 var playerGun = null
+var overlappingGuns = []
 
 onready var headAnimationPlayer = $HeadAnimationPlayer
 onready var torsoAnimationPlayer = $TorsoAnimationPlayer
@@ -24,7 +25,7 @@ onready var replayer = $Replayer
 # TODO: Don't instantiate the gun on init
 func _ready():
 	if SPAWN_WITH_GUN:		
-		spawnPlayerGun()
+		pickupPlayerGun(PlayerGun.instance())
 
 func _physics_process(delta):
 	# Base movement off of replay recording
@@ -66,10 +67,9 @@ func faceMouse():
 	var mousePosition = get_global_mouse_position()	
 	look_at(mousePosition)
 
-func spawnPlayerGun():
-	playerGun = PlayerGun.instance()
-	add_child(playerGun)
-	playerGun.global_position = global_position
-	playerGun.rotation = rotation
-	playerGun.setMask(2)
-	torsoAnimationPlayer.play("HoldingGunIdle")
+func pickupPlayerGun(instance):
+	if playerGun == null:
+		instance.pickup(self, 2, true)
+		playerGun = instance
+		torsoAnimationPlayer.play("HoldingGunIdle")
+		overlappingGuns.erase(instance)

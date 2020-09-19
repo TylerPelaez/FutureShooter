@@ -1,17 +1,19 @@
 extends KinematicBody2D
 
-const PlayerGun = preload("res://Guns/Gun.tscn")
+const PlayerGun = preload("res://Guns/Pistol.tscn")
 
 export var ACCELERATION := 500
 export var MAX_SPEED := 100
 export var FRICTION := 500
 export var AIM_SPEED := 1
 export var CAMERA_POSITION_OFFSET_DENOMINATOR := 4
-export var SPAWN_WITH_GUN := true
+export var SPAWN_WITH_GUN := false
 
 var velocity = Vector2.ZERO
 var playerGun = null
+var overlappingGuns = []
 
+onready var gunPickupRange = $GunPickupRange
 onready var headAnimationPlayer = $HeadAnimationPlayer
 onready var torsoAnimationPlayer = $TorsoAnimationPlayer
 onready var feetAnimationPlayer = $FeetAnimationPlayer
@@ -19,10 +21,9 @@ onready var cameraFollow = $CameraFollow
 onready var feetSprite = $FeetSprite
 onready var feetSpriteDefaultRotation = feetSprite.rotation
 
-# TODO: Don't instantiate the gun on init
 func _ready():
-	if SPAWN_WITH_GUN:		
-		spawnPlayerGun()
+	if SPAWN_WITH_GUN:
+		pickupPlayerGun(PlayerGun.instance())
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
@@ -35,11 +36,17 @@ func _physics_process(delta):
 	faceMouse()
 	update_animation(input_vector)
 	moveCameraFollow()
+	updateShooting()
 	
-	if playerGun != null and Input.is_action_pressed("fire") and playerGun.canFire():
-		playerGun.fire(get_global_mouse_position())
-		torsoAnimationPlayer.play("HoldingGunFiring")
-		headAnimationPlayer.play("FiringHead")
+	if Input.is_action_just_pressed("interact"):
+		if playerGun == null and !overlappingGuns.empty():
+			pickupPlayerGun(overlappingGuns[0])
+		elif playerGun != null and !overlappingGuns.empty():
+			var gunToPickup = overlappingGuns[0]
+			dropPlayerGun()
+			pickupPlayerGun(gunToPickup)
+		elif playerGun != null:
+			dropPlayerGun()
 	
 func get_input_vector():
 	var input_vector = Vector2.ZERO
@@ -59,7 +66,6 @@ func update_animation(input_vector):
 		if playerGun == null:
 			torsoAnimationPlayer.play("IdleTorso")
 
-
 func move():
 	velocity = move_and_slide(velocity)
 
@@ -72,10 +78,27 @@ func moveCameraFollow():
 	var midpoint = (mousePos - global_position) / CAMERA_POSITION_OFFSET_DENOMINATOR
 	cameraFollow.global_position = global_position + midpoint
 
-func spawnPlayerGun():
-	playerGun = PlayerGun.instance()
-	add_child(playerGun)
-	playerGun.global_position = global_position
-	playerGun.rotation = rotation
-	playerGun.setMask(2)
-	torsoAnimationPlayer.play("HoldingGunIdle")
+func updateShooting():
+	if playerGun != null and Input.is_action_pressed("fire") and playerGun.canFire():
+		playerGun.fire(get_global_mouse_position())
+		torsoAnimationPlayer.play("HoldingGunFiring")
+		headAnimationPlayer.play("FiringHead")
+
+func pickupPlayerGun(instance):
+	if playerGun == null:
+		instance.pickup(self, 2, true)
+		playerGun = instance
+		torsoAnimationPlayer.play("HoldingGunIdle")
+		overlappingGuns.erase(instance)
+
+func dropPlayerGun():
+	if playerGun != null:
+		playerGun.drop(get_tree().current_scene, global_position, global_rotation)
+		playerGun = null
+
+func _on_GunPickupRange_area_entered(area):
+	overlappingGuns.append(area.get_parent())
+
+
+func _on_GunPickupRange_area_exited(area):
+	overlappingGuns.erase(area.get_parent())
