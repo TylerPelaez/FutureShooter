@@ -1,8 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=2]
 
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 54.3947, 40.3789 )
+
+[node name="CameraFollow" parent="Player" index="2"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 54.3947, 40.3789 )
+current = true
+process_mode = 0
+smoothing_enabled = true
+
+[node name="Enemy" parent="." instance=ExtResource( 2 )]
+position = Vector2( 89.2357, 104.389 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 176.788, 58.368 )
+
+[editable path="Player"]
