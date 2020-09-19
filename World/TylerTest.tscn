@@ -10,6 +10,7 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 118, 47 )
 current = true
+process_mode = 0
 
 [node name="Crate" parent="." instance=ExtResource( 4 )]
 position = Vector2( 217, 45 )

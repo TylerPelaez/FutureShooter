@@ -1,14 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Guns/Pistol.png" type="Texture" id=1]
 [ext_resource path="res://Guns/Gun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Guns/Pistol.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 5 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 3 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "Flashing"
+[sub_resource type="Animation" id=2]
 length = 0.7
 loop = true
 tracks/0/type = "value"
@@ -36,8 +35,7 @@ tracks/1/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Hide"
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -52,8 +50,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -83,6 +80,10 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=5]
 radius = 13.0
 
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 5.0
+height = 6.0
+
 [node name="Pistol" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 MAX_AMMO = 2
@@ -98,16 +99,28 @@ position = Vector2( 10, 0 )
 
 [node name="Collider" parent="." index="3"]
 visible = false
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "Idle"
-anims/Flashing = SubResource( 1 )
-anims/Hide = SubResource( 2 )
-anims/Idle = SubResource( 3 )
+anims/Flashing = SubResource( 2 )
+anims/Hide = SubResource( 3 )
+anims/Idle = SubResource( 4 )
 
 [node name="DropTimer" type="Timer" parent="." index="5"]
 
+[node name="PickupRange" parent="." index="6"]
+visible = false
+
 [node name="Collider" parent="PickupRange" index="0"]
 shape = SubResource( 5 )
+
+[node name="Hitbox" parent="." index="7"]
+visible = false
+
+[node name="Collider" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource( 6 )
 [connection signal="timeout" from="DropTimer" to="." method="_on_DropTimer_timeout"]
+
+[editable path="Hitbox"]

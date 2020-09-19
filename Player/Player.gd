@@ -8,10 +8,12 @@ export var FRICTION := 500
 export var AIM_SPEED := 1
 export var CAMERA_POSITION_OFFSET_DENOMINATOR := 4
 export var SPAWN_WITH_GUN := false
+export var THROW_FORCE := 500
 
 var velocity = Vector2.ZERO
 var playerGun = null
 var overlappingGuns = []
+var throwingGun = false
 
 onready var gunPickupRange = $GunPickupRange
 onready var headAnimationPlayer = $HeadAnimationPlayer
@@ -38,7 +40,7 @@ func _physics_process(delta):
 	moveCameraFollow()
 	updateShooting()
 	
-	if Input.is_action_just_pressed("interact"):
+	if not throwingGun and Input.is_action_just_pressed("interact"):
 		if playerGun == null and !overlappingGuns.empty():
 			pickupPlayerGun(overlappingGuns[0])
 		elif playerGun != null and !overlappingGuns.empty():
@@ -48,6 +50,11 @@ func _physics_process(delta):
 		elif playerGun != null:
 			dropPlayerGun()
 	
+	if not throwingGun and Input.is_action_just_pressed("throw"):
+		if playerGun != null:
+			throwingGun = true
+			torsoAnimationPlayer.play("ThrowingGun")
+	
 func get_input_vector():
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -56,6 +63,9 @@ func get_input_vector():
 	return input_vector
 
 func update_animation(input_vector):
+	if throwingGun:
+		return
+
 	if input_vector != Vector2.ZERO:
 		feetSprite.global_rotation = feetSpriteDefaultRotation + input_vector.angle()
 		feetAnimationPlayer.play("WalkingFeet")
@@ -95,6 +105,13 @@ func dropPlayerGun():
 	if playerGun != null:
 		playerGun.drop(get_tree().current_scene, global_position, global_rotation)
 		playerGun = null
+
+func throwPlayerGun():
+	if playerGun != null:
+		var throwDirection = get_transform().basis_xform(Vector2.RIGHT)
+		playerGun.throw(get_tree().current_scene, global_position, global_rotation, throwDirection * THROW_FORCE)
+		playerGun = null
+		throwingGun = false
 
 func _on_GunPickupRange_area_entered(area):
 	overlappingGuns.append(area.get_parent())

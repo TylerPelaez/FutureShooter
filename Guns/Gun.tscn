@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Guns/Gun.gd" type="Script" id=1]
+[ext_resource path="res://Overlap/Hitbox.tscn" type="PackedScene" id=2]
 
 [node name="Gun" type="KinematicBody2D"]
 collision_layer = 32
@@ -23,3 +24,5 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="Collider" type="CollisionShape2D" parent="PickupRange"]
+
+[node name="Hitbox" parent="." instance=ExtResource( 2 )]

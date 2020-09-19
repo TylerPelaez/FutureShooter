@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/PC_Torso.png" type="Texture" id=2]
@@ -181,6 +181,36 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "ThrowingGun"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("TorsoSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "throwPlayerGun"
+} ]
+}
+
 [sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
@@ -274,6 +304,8 @@ collision_layer = 2
 collision_mask = 17
 script = ExtResource( 1 )
 AIM_SPEED = 2
+SPAWN_WITH_GUN = true
+THROW_FORCE = 450
 
 [node name="Recorder" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -288,8 +320,8 @@ hframes = 10
 rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
-hframes = 10
-frame = 9
+hframes = 15
+frame = 14
 
 [node name="HeadSprite" type="Sprite" parent="."]
 position = Vector2( -1, 0 )
@@ -298,6 +330,7 @@ texture = ExtResource( 5 )
 offset = Vector2( 0, -5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 0 )
 shape = SubResource( 11 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
@@ -319,6 +352,7 @@ autoplay = "IdleTorso"
 anims/HoldingGunFiring = SubResource( 12 )
 anims/HoldingGunIdle = SubResource( 13 )
 anims/IdleTorso = SubResource( 7 )
+anims/ThrowingGun = SubResource( 15 )
 anims/WalkingTorso = SubResource( 8 )
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="."]
@@ -331,7 +365,6 @@ collision_layer = 0
 collision_mask = 32
 
 [node name="Collider" type="CollisionShape2D" parent="GunPickupRange"]
-visible = false
 shape = SubResource( 14 )
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
