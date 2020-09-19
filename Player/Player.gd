@@ -50,7 +50,6 @@ func get_input_vector():
 
 func update_animation(input_vector):
 	if input_vector != Vector2.ZERO:
-		var animation_input_vector = Vector2(input_vector.x, -input_vector.y)
 		feetSprite.global_rotation = feetSpriteDefaultRotation + input_vector.angle()
 		feetAnimationPlayer.play("WalkingFeet")
 		if playerGun == null:
@@ -78,4 +77,5 @@ func spawnPlayerGun():
 	add_child(playerGun)
 	playerGun.global_position = global_position
 	playerGun.rotation = rotation
+	playerGun.setMask(2)
 	torsoAnimationPlayer.play("HoldingGunIdle")

@@ -9,6 +9,8 @@ onready var ammoCount = MAX_AMMO
 onready var fireTimer = $FireTimer
 onready var muzzle = $Muzzle
 
+var mask = 0
+
 func canFire():
 	return ammoCount > 0 and fireTimer.time_left <= 0
 
@@ -23,3 +25,7 @@ func instantiateProjectile(targetPosition):
 	var directionVector = projectile.global_position.direction_to(targetPosition)
 	projectile.velocity = directionVector * BULLET_SPEED
 	projectile.rotation = projectile.velocity.angle()
+	projectile.setMask(mask)
+
+func setMask(index):
+	mask = index

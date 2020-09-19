@@ -11,11 +11,7 @@ extents = Vector2( 2, 2 )
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 
-[node name="VisibilityNotifier2D" parent="." index="1"]
-position = Vector2( 0.0315099, 0 )
-scale = Vector2( 0.203151, 0.2 )
-
-[node name="Hitbox" parent="." index="2"]
+[node name="Hitbox" parent="." index="1"]
 collision_mask = 4
 
 [node name="Collider" parent="Hitbox" index="0"]
