@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-export var ACCELERATION = 500
-export var MAX_SPEED = 100
-export var FRICTION = 500
+export var ACCELERATION := 500
+export var MAX_SPEED := 100
+export var FRICTION := 500
+export var AIM_SPEED := 1
 
 enum {
 	MOVE,
@@ -16,6 +17,9 @@ func _physics_process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
+	
+	faceMouse()
+	
 
 
 func move_state(delta):
@@ -33,3 +37,7 @@ func move_state(delta):
 	
 func move():
 	velocity = move_and_slide(velocity)
+
+func faceMouse():
+	var mousePosition = get_global_mouse_position()	
+	look_at(mousePosition)
