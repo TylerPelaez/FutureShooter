@@ -36,21 +36,32 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move()
-	# TODO: Facing recording
-	# faceMouse()
-	update_animation(input_vector)
+	
+	if replayer.get_gun_dropped():
+		if playerGun == null and !overlappingGuns.empty():
+			pickupPlayerGun(overlappingGuns[0])
+		elif playerGun != null and !overlappingGuns.empty():
+			var gunToPickup = overlappingGuns[0]
+			dropPlayerGun()
+			pickupPlayerGun(gunToPickup)
+		elif playerGun != null:
+			dropPlayerGun()
 
-# TODO: Firing recording	
-#	if playerGun != null and Input.is_action_pressed("fire") and playerGun.canFire():
-#		playerGun.fire(get_global_mouse_position())
-#		torsoAnimationPlayer.play("HoldingGunFiring")
-#		headAnimationPlayer.play("FiringHead")
+	# If the player originally fired at this time, and the hologram can fire,
+	# shoot a bullet!
+	var shot_fired = replayer.get_shots_fired()
+	if playerGun != null and shot_fired and playerGun.canFire():
+		look_at(shot_fired)
+		playerGun.fire(shot_fired)
+		torsoAnimationPlayer.play("HoldingGunFiring")
+		headAnimationPlayer.play("FiringHead")
+		
+	update_animation(input_vector)
 
 func update_animation(input_vector):
 	if input_vector != Vector2.ZERO:
 		feetSprite.global_rotation = feetSpriteDefaultRotation + input_vector.angle()
-		torsoSprite.global_rotation = torsoSpriteDefaultRotation + input_vector.angle()
-		headSprite.global_rotation = headSpriteDefaultRotation + input_vector.angle()
+			
 		feetAnimationPlayer.play("WalkingFeet")
 		if playerGun == null:
 			torsoAnimationPlayer.play("WalkingTorso")
@@ -63,13 +74,21 @@ func update_animation(input_vector):
 func move():
 	velocity = move_and_slide(velocity)
 
-func faceMouse():
-	var mousePosition = get_global_mouse_position()	
-	look_at(mousePosition)
-
 func pickupPlayerGun(instance):
 	if playerGun == null:
 		instance.pickup(self, 2, true)
 		playerGun = instance
 		torsoAnimationPlayer.play("HoldingGunIdle")
 		overlappingGuns.erase(instance)
+		
+func dropPlayerGun():
+	if playerGun != null:
+		playerGun.drop(get_tree().current_scene, global_position, global_rotation)
+		playerGun = null
+
+func _on_GunPickupRange_area_entered(area):
+	overlappingGuns.append(area.get_parent())
+
+
+func _on_GunPickupRange_area_exited(area):
+	overlappingGuns.erase(area.get_parent())

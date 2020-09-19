@@ -20,6 +20,7 @@ onready var feetAnimationPlayer = $FeetAnimationPlayer
 onready var cameraFollow = $CameraFollow
 onready var feetSprite = $FeetSprite
 onready var feetSpriteDefaultRotation = feetSprite.rotation
+onready var recorder = $Recorder
 
 func _ready():
 	if SPAWN_WITH_GUN:
@@ -80,6 +81,7 @@ func moveCameraFollow():
 
 func updateShooting():
 	if playerGun != null and Input.is_action_pressed("fire") and playerGun.canFire():
+		recorder.log_shot(get_global_mouse_position())
 		playerGun.fire(get_global_mouse_position())
 		torsoAnimationPlayer.play("HoldingGunFiring")
 		headAnimationPlayer.play("FiringHead")
