@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/PC_Torso.png" type="Texture" id=2]
@@ -265,6 +265,9 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=14]
+radius = 13.0
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 17
@@ -285,6 +288,7 @@ hframes = 10
 frame = 9
 
 [node name="HeadSprite" type="Sprite" parent="."]
+position = Vector2( -1, 0 )
 rotation = 1.5708
 texture = ExtResource( 5 )
 offset = Vector2( 0, -5 )
@@ -317,5 +321,15 @@ anims/WalkingTorso = SubResource( 8 )
 autoplay = "Idle"
 anims/FiringHead = SubResource( 9 )
 anims/Idle = SubResource( 10 )
+
+[node name="GunPickupRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="Collider" type="CollisionShape2D" parent="GunPickupRange"]
+visible = false
+shape = SubResource( 14 )
+[connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
+[connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
 
 [editable path="Hurtbox"]
