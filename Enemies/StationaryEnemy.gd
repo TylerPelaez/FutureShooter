@@ -1,6 +1,6 @@
 extends "res://Enemies/Enemy.gd"
 
-const EnemyGun = preload("res://Guns/PlayerGun.tscn")
+const EnemyGun = preload("res://Guns/Gun.tscn")
 
 var enemyGun = null
 onready var playerDetectionZone = $PlayerDetectionZone
