@@ -1,10 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/playerdev.png" type="Texture" id=2]
+[ext_resource path="res://Player/PC_WIP.png" type="Texture" id=2]
+[ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "Fire"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 6.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -12,9 +32,23 @@ script = ExtResource( 1 )
 AIM_SPEED = 2
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 4, 0 )
+rotation = 1.5708
 texture = ExtResource( 2 )
+hframes = 2
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fire = SubResource( 3 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 3 )]
+collision_layer = 8
+
+[node name="Collider" parent="Hurtbox" index="0"]
+shape = SubResource( 2 )
+
 [node name="CameraFollow" type="RemoteTransform2D" parent="."]
+
+[editable path="Hurtbox"]

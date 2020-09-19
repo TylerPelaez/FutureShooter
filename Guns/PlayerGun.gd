@@ -10,9 +10,10 @@ onready var fireTimer = $FireTimer
 onready var muzzle = $Muzzle
 
 func canFire():
-	return fireTimer.time_left <= 0
+	return ammoCount > 0 and fireTimer.time_left <= 0
 
 func fire(targetPosition):
+	ammoCount = max(ammoCount -1, 0)
 	instantiateProjectile(targetPosition)
 	fireTimer.start()
 

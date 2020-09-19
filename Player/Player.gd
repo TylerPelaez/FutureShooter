@@ -6,15 +6,19 @@ export var ACCELERATION := 500
 export var MAX_SPEED := 100
 export var FRICTION := 500
 export var AIM_SPEED := 1
+export var CAMERA_POSITION_OFFSET_DENOMINATOR := 4
 
+# state - currently just move
 enum {
-	MOVE,
-	ATTACK
+	MOVE
 }
 
 var velocity = Vector2.ZERO
 var state = MOVE
 var playerGun
+
+onready var animationPlayer = $AnimationPlayer
+onready var cameraFollow = $CameraFollow
 
 # TODO: Don't instantiate the gun on init
 func _ready():
@@ -29,9 +33,11 @@ func _physics_process(delta):
 			move_state(delta)
 	
 	faceMouse()
+	moveCameraFollow()
 	
 	if Input.is_action_pressed("fire") and playerGun.canFire():
 		playerGun.fire(get_global_mouse_position())
+		animationPlayer.play("Fire")
 
 
 func move_state(delta):
@@ -53,3 +59,8 @@ func move():
 func faceMouse():
 	var mousePosition = get_global_mouse_position()	
 	look_at(mousePosition)
+	
+func moveCameraFollow():
+	var mousePos = get_global_mouse_position()
+	var midpoint = (mousePos - global_position) / CAMERA_POSITION_OFFSET_DENOMINATOR
+	cameraFollow.global_position = global_position + midpoint
