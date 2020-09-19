@@ -46,7 +46,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "HoldingGunFiring"
 length = 0.2
 tracks/0/type = "value"
@@ -62,7 +62,7 @@ tracks/0/keys = {
 "values": [ 9, 8 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 resource_name = "HoldingGunIdle"
 length = 0.1
 loop = true
@@ -79,8 +79,7 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "IdleTorso"
+[sub_resource type="Animation" id=7]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -96,8 +95,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "WalkingTorso"
+[sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -162,7 +160,6 @@ rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 hframes = 10
-frame = 9
 
 [node name="HeadSprite" type="Sprite" parent="."]
 rotation = 1.5708
@@ -187,10 +184,10 @@ anims/WalkingFeet = SubResource( 4 )
 
 [node name="TorsoAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "IdleTorso"
-anims/HoldingGunFiring = SubResource( 7 )
-anims/HoldingGunIdle = SubResource( 8 )
-anims/IdleTorso = SubResource( 5 )
-anims/WalkingTorso = SubResource( 6 )
+anims/HoldingGunFiring = SubResource( 5 )
+anims/HoldingGunIdle = SubResource( 6 )
+anims/IdleTorso = SubResource( 7 )
+anims/WalkingTorso = SubResource( 8 )
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"

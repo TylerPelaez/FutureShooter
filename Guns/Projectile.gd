@@ -8,7 +8,8 @@ func _physics_process(delta):
 
 func setMask(index):
 	# See https://godotengine.org/qa/17896/collision-layer-and-masks-in-gdscript
-	hitbox.collision_mask = 0
+	# By default, everything should collide with the world
+	hitbox.collision_mask = pow(2, 0)
 	hitbox.set_collision_mask_bit(index, true)
 
 func _on_Hitbox_area_entered(_area):

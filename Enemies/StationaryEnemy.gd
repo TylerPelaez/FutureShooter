@@ -2,16 +2,18 @@ extends "res://Enemies/Enemy.gd"
 
 const EnemyGun = preload("res://Guns/PlayerGun.tscn")
 
-var detectedPlayer = false
-onready var player = get_parent().get_node("Player")
 var enemyGun = null
+onready var playerDetectionZone = $PlayerDetectionZone
 
 func _ready():
 	spawnEnemyGun()
 
 func _physics_process(delta):
-	if detectedPlayer:
-		look_at(player.global_position)
+	if playerDetectionZone.isAwareOfPlayer():
+		var playerPosition = playerDetectionZone.getPlayerPosition()
+		look_at(playerPosition)
+		if enemyGun != null and enemyGun.canFire():
+			enemyGun.fire(playerPosition)
 	
 func spawnEnemyGun():
 	enemyGun = EnemyGun.instance()
@@ -19,9 +21,3 @@ func spawnEnemyGun():
 	enemyGun.global_position = global_position
 	enemyGun.rotation = rotation
 	enemyGun.setMask(3)
-
-func _on_PlayerDetectionZone_body_entered(body):
-	detectedPlayer = true
-
-func _on_PlayerDetectionZone_body_exited(body):
-	detectedPlayer = false
