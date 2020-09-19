@@ -7,6 +7,7 @@ export var MAX_SPEED := 100
 export var FRICTION := 500
 export var AIM_SPEED := 1
 export var CAMERA_POSITION_OFFSET_DENOMINATOR := 4
+export var SPAWN_WITH_GUN := true
 
 var velocity = Vector2.ZERO
 var playerGun = null
@@ -20,7 +21,8 @@ onready var feetSpriteDefaultRotation = feetSprite.rotation
 
 # TODO: Don't instantiate the gun on init
 func _ready():
-	spawnPlayerGun()
+	if SPAWN_WITH_GUN:
+		spawnPlayerGun()
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
