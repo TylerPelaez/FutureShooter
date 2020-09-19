@@ -21,11 +21,9 @@ func _physics_process(delta):
 		physicsFrame += 1
 		
 func start_replaying():
-	print("START", self)
 	start = true
 		
 func get_input_vector():
-	print("HOLO", self)
 	var input_vector = Vector2.ZERO
 	
 	# Check for any WASD input on this physics frame

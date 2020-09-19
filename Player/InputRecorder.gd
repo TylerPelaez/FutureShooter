@@ -29,10 +29,10 @@ func start_recording():
 	
 func reset():
 	physicsFrame = 0
-	moveRight.clear()
-	moveLeft.clear()
-	moveUp.clear()
-	moveDown.clear()
+	moveRight = {}
+	moveLeft = {}
+	moveUp = {}
+	moveDown = {}
 	start = false
 		
 func log_input():
