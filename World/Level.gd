@@ -11,7 +11,7 @@ enum WIN_CONDITION {
 
 export var levelBackgroundColor := "#57142e"
 export (WIN_CONDITION) var winCondition = WIN_CONDITION.KILL_ALL
-
+export var SPAWN_PLAYER_WITH_GUN := false
 
 enum {
 	RIGHT,
@@ -69,6 +69,7 @@ func restartScene(right, left, up, down, shots, drops, throws, rotations):
 
 func spawnPlayer():
 	player = Player.instance()
+	player.SPAWN_WITH_GUN = SPAWN_PLAYER_WITH_GUN
 	self.add_child(player)
 	player.global_position = spawnPoint.global_position
 	player.setCameraFollow(camera)
@@ -88,6 +89,7 @@ func spawnHologram(state):
 	var rotations = state[ROTATIONS]
 	
 	var holo = HologramPlayer.instance()
+	holo.SPAWN_WITH_GUN = SPAWN_PLAYER_WITH_GUN
 	self.add_child(holo)
 	var replayer = holo.get_node("Replayer")
 	

@@ -16,3 +16,6 @@ current = true
 [node name="SpawnPoint" type="Position2D" parent="."]
 
 [node name="TileMap" parent="." instance=ExtResource( 2 )]
+
+[node name="VictoryTimer" type="Timer" parent="."]
+[connection signal="timeout" from="VictoryTimer" to="." method="_on_VictoryTimer_timeout"]
