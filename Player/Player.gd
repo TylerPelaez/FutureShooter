@@ -113,7 +113,6 @@ func throwPlayerGun():
 		var throwDirection = get_transform().basis_xform(Vector2.RIGHT)
 		playerGun.throw(get_tree().current_scene, global_position, global_rotation, throwDirection * THROW_FORCE)
 		playerGun = null
-		throwingGun = false
 
 func _on_GunPickupRange_area_entered(area):
 	overlappingGuns.append(area.get_parent())
@@ -121,3 +120,7 @@ func _on_GunPickupRange_area_entered(area):
 
 func _on_GunPickupRange_area_exited(area):
 	overlappingGuns.erase(area.get_parent())
+
+
+func finishPlayerThrow():
+	throwingGun = false

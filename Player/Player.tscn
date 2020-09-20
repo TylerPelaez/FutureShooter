@@ -181,7 +181,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=8]
 resource_name = "ThrowingGun"
 length = 0.6
 tracks/0/type = "value"
@@ -203,15 +203,18 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "throwPlayerGun"
+}, {
+"args": [  ],
+"method": "finishPlayerThrow"
 } ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -263,8 +266,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "FiringHead"
+[sub_resource type="Animation" id=10]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("HeadSprite:position")
@@ -279,8 +281,7 @@ tracks/0/keys = {
 "values": [ Vector2( -1, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "Idle"
+[sub_resource type="Animation" id=11]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -296,7 +297,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=11]
+[sub_resource type="CircleShape2D" id=12]
 radius = 13.0
 
 [node name="Player" type="KinematicBody2D"]
@@ -353,13 +354,13 @@ autoplay = "IdleTorso"
 anims/HoldingGunFiring = SubResource( 5 )
 anims/HoldingGunIdle = SubResource( 6 )
 anims/IdleTorso = SubResource( 7 )
-anims/ThrowingGun = SubResource( 15 )
-anims/WalkingTorso = SubResource( 8 )
+anims/ThrowingGun = SubResource( 8 )
+anims/WalkingTorso = SubResource( 9 )
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/FiringHead = SubResource( 9 )
-anims/Idle = SubResource( 10 )
+anims/FiringHead = SubResource( 10 )
+anims/Idle = SubResource( 11 )
 
 [node name="GunPickupRange" type="Area2D" parent="."]
 collision_layer = 0
@@ -367,7 +368,7 @@ collision_mask = 32
 
 [node name="Collider" type="CollisionShape2D" parent="GunPickupRange"]
 visible = false
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
 
