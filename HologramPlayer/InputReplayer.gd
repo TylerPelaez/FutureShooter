@@ -101,8 +101,7 @@ func get_rotation():
 func set_shot_dict(shots):	
 	if !shotsSet:
 		shotsDict = shots
-		
-	print(shotsDict)
+	
 	shotsSet = true
 	
 # Set the dictionaries for movement inputs
