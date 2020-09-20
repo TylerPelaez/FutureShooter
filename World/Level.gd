@@ -10,7 +10,8 @@ enum {
 	DOWN,
 	SHOTS,
 	DROPS,
-	THROWS
+	THROWS,
+	ROTATIONS
 }
 
 onready var spawnPoint = $SpawnPoint
@@ -21,15 +22,13 @@ var recorder = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Give us a random seed every time
-	randomize()
 	spawnPlayer()
 	
 	if !PersistentRecordedInput.get_state().empty():
 		spawnHologram(PersistentRecordedInput.get_state())
 		PersistentRecordedInput.clear_state()
 
-func _on_player_death(right, left, up, down, shots, drops, throws):
+func _on_player_death(right, left, up, down, shots, drops, throws, rotations):
 	var newState = {
 		RIGHT: right,
 		LEFT: left,
@@ -37,7 +36,8 @@ func _on_player_death(right, left, up, down, shots, drops, throws):
 		DOWN: down,
 		SHOTS: shots,
 		DROPS: drops,
-		THROWS: throws
+		THROWS: throws,
+		ROTATIONS: rotations
 	}
 	PersistentRecordedInput.set_state(newState)
 	get_tree().reload_current_scene()
@@ -62,12 +62,17 @@ func spawnHologram(state):
 	var shots = state[SHOTS]
 	var drops = state[DROPS]
 	var throws = state[THROWS]
+	var rotations = state[ROTATIONS]
 	
 	var holo = HologramPlayer.instance()
 	self.add_child(holo)
-	holo.get_node("Replayer").set_movement_dicts(right, left, up, down)
-	holo.get_node("Replayer").set_shot_dict(shots)
-	holo.get_node("Replayer").set_drop_dict(drops)
-	holo.get_node("Replayer").set_throw_dict(throws)
+	var replayer = holo.get_node("Replayer")
+	
+	replayer.set_movement_dicts(right, left, up, down)
+	replayer.set_shot_dict(shots)
+	replayer.set_drop_dict(drops)
+	replayer.set_throw_dict(throws)
+	replayer.set_rotations(rotations)
+
 	holo.global_position = spawnPoint.global_position
-	holo.get_node("Replayer").start_replaying()
+	replayer.start_replaying()

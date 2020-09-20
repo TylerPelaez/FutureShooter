@@ -14,13 +14,15 @@ var gunThrown = {}
 # Dictionary for shots fired - key:value - physicsFrame:mousePos
 var shotsDict = {}
 
+var rotationsDict = {}
+
 var physicsFrame = 0
 var start = false
 var movementSet = false
 var shotsSet = false
 var dropSet = false
 var throwSet = false
-
+var rotationsSet = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,12 +43,14 @@ func reset():
 	shotsDict = {}
 	gunDropped = {}
 	gunThrown = {}
+	rotationsDict = {}
 	physicsFrame = 0
 	start = false;
 	movementSet = false
 	shotsSet = false
 	dropSet = false
 	throwSet = false
+	rotationsSet = false
 		
 func get_input_vector():
 	var input_vector = Vector2.ZERO
@@ -87,12 +91,18 @@ func get_gun_thrown():
 	if gunThrown.has(physicsFrame):
 		return gunThrown[physicsFrame]
 	return false
-	
+
+func get_rotation():
+	if rotationsDict.has(physicsFrame):
+		return rotationsDict[physicsFrame]
+	return false
+
 # Sets dictionary of shots
 func set_shot_dict(shots):	
 	if !shotsSet:
 		shotsDict = shots
 		
+	print(shotsDict)
 	shotsSet = true
 	
 # Set the dictionaries for movement inputs
@@ -104,7 +114,7 @@ func set_movement_dicts(right, left, up, down):
 		moveDown = down
 		
 		movementSet = true
-	
+
 # Set gun dropped dictionary	
 func set_drop_dict(dropped):
 	if !dropSet:
@@ -118,3 +128,9 @@ func set_throw_dict(thrown):
 		gunThrown = thrown
 	
 	throwSet = true
+
+func set_rotations(rotations):
+	if !rotationsSet:
+		rotationsDict = rotations
+	
+	rotationsSet = true

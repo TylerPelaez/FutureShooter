@@ -63,6 +63,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 8 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "slowHologram"
+}, {
+"args": [  ],
+"method": "resetSpeed"
+} ]
+}
 
 [sub_resource type="Animation" id=7]
 length = 0.1
@@ -118,11 +135,17 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
+"method": "slowHologram"
+}, {
+"args": [  ],
 "method": "throwPlayerGun"
+}, {
+"args": [  ],
+"method": "resetSpeed"
 }, {
 "args": [  ],
 "method": "finishPlayerThrow"
@@ -354,6 +377,7 @@ rotation = 1.5708
 texture = SubResource( 1 )
 offset = Vector2( 0, -5 )
 hframes = 15
+frame = 13
 
 [node name="HeadSprite" type="Sprite" parent="."]
 rotation = 1.5708

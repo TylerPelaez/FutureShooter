@@ -13,6 +13,8 @@ var gunDropped = {}
 var shootDirection = {}
 var gunThrown = {}
 
+var rotations = {}
+
 var physicsFrame = 0
 var start = false
 
@@ -25,10 +27,7 @@ func _physics_process(delta):
 		physicsFrame += 1
 		log_input()
 		log_drop()
-		
-	# For testing
-	elif Input.is_key_pressed(KEY_R):
-		start_recording()
+		log_rotation()
 
 func start_recording():
 	start = true	
@@ -76,9 +75,12 @@ func log_throw(mousePos):
 	if start:
 		gunThrown[physicsFrame] = mousePos
 
+func log_rotation():
+	rotations[physicsFrame] = get_parent().global_rotation
+
 # When the player dies, send the input data through a series of signals		
 func player_died():
-	emit_signal("player_death", moveRight, moveLeft, moveUp, moveDown, shootDirection, gunDropped, gunThrown)
+	emit_signal("player_death", moveRight, moveLeft, moveUp, moveDown, shootDirection, gunDropped, gunThrown, rotations)
 	reset()
 	
-signal player_death(rightDict, leftDict, upDict, downDict, shootDir, gunDrop, gunThrow)
+signal player_death(rightDict, leftDict, upDict, downDict, shootDir, gunDrop, gunThrow, rotations)

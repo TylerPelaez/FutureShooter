@@ -10,7 +10,7 @@
 [ext_resource path="res://Player/PC_Die.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 5.0
+radius = 8.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -486,7 +486,6 @@ collision_layer = 2
 collision_mask = 17
 script = ExtResource( 1 )
 AIM_SPEED = 2
-SPAWN_WITH_GUN = true
 THROW_FORCE = 450
 
 [node name="Recorder" type="Node" parent="."]
@@ -503,6 +502,7 @@ rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 hframes = 15
+frame = 8
 
 [node name="HeadSprite" type="Sprite" parent="."]
 position = Vector2( -1, 0 )

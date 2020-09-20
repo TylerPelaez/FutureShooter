@@ -7,6 +7,7 @@ export var MAX_SPEED := 100
 export var FRICTION := 500
 export var SPAWN_WITH_GUN := false
 export var THROW_FORCE := 500
+export var SLOW_SPEED := 50
 
 var velocity = Vector2.ZERO
 var playerGun = null
@@ -14,6 +15,7 @@ var overlappingGuns = []
 var throwingGun = false
 var dying = false
 
+onready var speed = MAX_SPEED
 onready var headAnimationPlayer = $HeadAnimationPlayer
 onready var torsoAnimationPlayer = $TorsoAnimationPlayer
 onready var feetAnimationPlayer = $FeetAnimationPlayer
@@ -27,7 +29,6 @@ onready var headSpriteDefaultRotation = headSprite.rotation
 onready var replayer = $Replayer
 onready var playerStats = $PlayerStats
 
-# TODO: Don't instantiate the gun on init
 func _ready():
 	if SPAWN_WITH_GUN:		
 		pickupPlayerGun(PlayerGun.instance())
@@ -36,10 +37,12 @@ func _physics_process(delta):
 	if dying:
 		return
 	
+	global_rotation = replayer.get_rotation() 
+	
 	# Base movement off of replay recording
 	var input_vector = replayer.get_input_vector()
 	if input_vector != Vector2.ZERO:
-		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
+		velocity = velocity.move_toward(input_vector * speed, ACCELERATION * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
@@ -59,14 +62,12 @@ func _physics_process(delta):
 	if not throwingGun and isGunThrown:
 		if playerGun != null:
 			throwingGun = true
-			look_at(isGunThrown)
 			torsoAnimationPlayer.play("ThrowingGun")
 
 	# If the player originally fired at this time, and the hologram can fire,
 	# shoot a bullet!
 	var shot_fired = replayer.get_shots_fired()
 	if playerGun != null and shot_fired and playerGun.canFire():
-		look_at(shot_fired)
 		playerGun.fire(shot_fired)
 		torsoAnimationPlayer.play("HoldingGunFiring")
 		headAnimationPlayer.play("FiringHead")
@@ -74,6 +75,9 @@ func _physics_process(delta):
 	update_animation(input_vector)
 
 func update_animation(input_vector):
+	if throwingGun:
+		return
+	
 	if input_vector != Vector2.ZERO:
 		feetSprite.global_rotation = feetSpriteDefaultRotation + input_vector.angle()
 			
@@ -124,3 +128,9 @@ func _on_PlayerStats_player_died():
 func _on_Hurtbox_hit(damage):
 	if not dying:
 		playerStats.health -= damage
+
+func slowHologram():
+	speed = SLOW_SPEED
+	
+func resetSpeed():
+	speed = MAX_SPEED
