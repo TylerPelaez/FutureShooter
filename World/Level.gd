@@ -32,6 +32,7 @@ onready var victoryTimer = $VictoryTimer
 onready var resetChoice = $CanvasLayer/ResetChoice
 onready var clearButton = $CanvasLayer/ResetChoice/ClearButton
 onready var keepButton = $CanvasLayer/ResetChoice/KeepButton
+onready var tilemap = $TileMap
 
 var player = null
 var recorder = null
@@ -51,6 +52,16 @@ func _ready():
 	spawnPlayer()
 	
 	if !PersistentRecordedInput.get_state().empty():
+		var cells = tilemap.get_used_cells()
+		for cell in  cells:
+			var tileIndex = tilemap.get_cellv(cell)
+			var autoTileCoord = tilemap.get_cell_autotile_coord(cell.x, cell.y)
+			var is_x_flipped = tilemap.is_cell_x_flipped(cell.x, cell.y)
+			var is_y_flipped = tilemap.is_cell_y_flipped(cell.x, cell.y)
+			var is_cell_transposed = tilemap.is_cell_transposed(cell.x, cell.y)
+			
+			tilemap.set_cell(cell.x, cell.y, 1, is_x_flipped, is_y_flipped, is_cell_transposed, autoTileCoord)
+			
 		spawnHologram(PersistentRecordedInput.get_state())
 		PersistentRecordedInput.clear_state()
 
