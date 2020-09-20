@@ -1,7 +1,10 @@
 extends "res://Guns/Gun.gd"
 
 onready var animationPlayer = $AnimationPlayer
-onready var dropTimer = $DropTimer	
+
+func _physics_process(delta):
+	if velocity == Vector2.ZERO and dropped:
+		animationPlayer.play("Flashing")
 
 func pickup(newParent, newMask, useAmmo):
 	.pickup(newParent, newMask, useAmmo)
@@ -9,9 +12,8 @@ func pickup(newParent, newMask, useAmmo):
 	
 func drop(world, newPosition, newRotation):
 	.drop(world, newPosition, newRotation)
-	animationPlayer.play("Idle")
-	dropTimer.start()
+	animationPlayer.play("Flashing")
 
-func _on_DropTimer_timeout():
-	if dropped:
-		animationPlayer.play("Flashing")
+func throw(world, newPosition, newRotation, initialVelocity):
+	.throw(world, newPosition, newRotation, initialVelocity)
+	animationPlayer.play("Idle")

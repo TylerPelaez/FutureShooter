@@ -107,20 +107,17 @@ anims/Flashing = SubResource( 2 )
 anims/Hide = SubResource( 3 )
 anims/Idle = SubResource( 4 )
 
-[node name="DropTimer" type="Timer" parent="." index="5"]
-
-[node name="PickupRange" parent="." index="6"]
+[node name="PickupRange" parent="." index="5"]
 visible = false
 
 [node name="Collider" parent="PickupRange" index="0"]
 shape = SubResource( 5 )
 
-[node name="Hitbox" parent="." index="7"]
+[node name="Hitbox" parent="." index="6"]
 visible = false
 
 [node name="Collider" parent="Hitbox" index="0"]
 rotation = 1.5708
 shape = SubResource( 6 )
-[connection signal="timeout" from="DropTimer" to="." method="_on_DropTimer_timeout"]
 
 [editable path="Hitbox"]

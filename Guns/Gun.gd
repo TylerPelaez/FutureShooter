@@ -63,25 +63,25 @@ func pickup(newParent, newMask, useAmmo):
 	global_position = newParent.global_position
 	global_rotation = newParent.global_rotation
 	mask = newMask
-	collider.disabled = true
+	collider.set_deferred("disabled", true)
 	dropped = false
 	usesAmmo = useAmmo
-	pickupRange.disabled = true
-	gunHitboxCollider.disabled = true
-	gunHitbox.collision_mask = pow(2, newMask)
+	pickupRange.set_deferred("disabled", true)
+	gunHitboxCollider.set_deferred("disabled", true)
+	gunHitbox.set_deferred("collision_mask", pow(2, newMask))
 
 func drop(world, newPosition, newRotation):
 	if get_parent() != null:
 		get_parent().remove_child(self)
-	world.add_child(self)
+	world.call_deferred("add_child", self)
 	global_position = newPosition
 	global_rotation = newRotation
-	collider.disabled = false
+	collider.set_deferred("disabled", false)
 	dropped = true
-	pickupRange.disabled = false
+	pickupRange.set_deferred("disabled", false)
+	pickupRange.set_deferred("disabled", false)
 
 func throw(world, newPosition, newRotation, initialVelocity):
 	drop(world, newPosition, newRotation)
 	gunHitboxCollider.disabled = false
 	velocity = initialVelocity
-	

@@ -142,6 +142,7 @@ func finishPlayerThrow():
 
 func _on_PlayerStats_player_died():
 	dying = true
+	dropPlayerGun()
 	var animationIndex = randi() % 2 + 1
 	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
 	
