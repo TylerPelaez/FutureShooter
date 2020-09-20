@@ -9,8 +9,9 @@ var moveDown = {}
 # Dictionary for dropping the gun - key:value - physicsFrame:bool
 var gunDropped = {}
 
-# Dictionary for firing - key:value - physicsFrame:mousePos
+# Dictionary for firing and throwing the gun - key:value - physicsFrame:mousePos
 var shootDirection = {}
+var gunThrown = {}
 
 var physicsFrame = 0
 var start = false
@@ -45,6 +46,7 @@ func reset():
 	moveDown = {}
 	shootDirection = {}
 	gunDropped = {}
+	gunThrown = {}
 	start = false
 		
 func log_input():
@@ -73,10 +75,15 @@ func log_drop():
 	# Check if gun was dropped during this physicsFrame, and log if so
 	if Input.is_action_just_pressed("interact"):
 		gunDropped[physicsFrame] = true
+		
+func log_throw(mousePos):
+	# Check if gun was thrown during this physicsFrame, and log mousePos if so
+	if start:
+		gunThrown[physicsFrame] = mousePos
 	
 # When the player dies, send the input data through a series of signals		
 func player_died():
-	emit_signal("player_death", moveRight, moveLeft, moveUp, moveDown, shootDirection, gunDropped)
+	emit_signal("player_death", moveRight, moveLeft, moveUp, moveDown, shootDirection, gunDropped, gunThrown)
 	reset()
 	
-signal player_death(rightDict, leftDict, upDict, downDict, shootDir, gunDrop)
+signal player_death(rightDict, leftDict, upDict, downDict, shootDir, gunDrop, gunThrow)

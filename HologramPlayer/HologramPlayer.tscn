@@ -1,20 +1,21 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://HologramPlayer/InputReplayer.gd" type="Script" id=1]
 [ext_resource path="res://HologramPlayer/Holo_Head.png" type="Texture" id=2]
 [ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=3]
-[ext_resource path="res://HologramPlayer/Holo_Torso.png" type="Texture" id=4]
 [ext_resource path="res://HologramPlayer/Holo_Feet.png" type="Texture" id=5]
 [ext_resource path="res://HologramPlayer/HologramPlayer.gd" type="Script" id=6]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 8.0
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/Holo_Torso.png-73fff6b2c41e4d88926acb6c6ad17482.stex"
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id=3]
 radius = 6.0
 
-[sub_resource type="Animation" id=3]
-resource_name = "IdleFeet"
+[sub_resource type="Animation" id=4]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -30,8 +31,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "WalkingFeet"
+[sub_resource type="Animation" id=5]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -47,8 +47,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 0 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "HoldingGunFiring"
+[sub_resource type="Animation" id=6]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("TorsoSprite:frame")
@@ -61,23 +60,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 9, 8 ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "HoldingGunIdle"
-length = 0.1
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("TorsoSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -93,10 +75,59 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 8 ]
 }
 
 [sub_resource type="Animation" id=8]
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TorsoSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "ThrowingGun"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("TorsoSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "throwPlayerGun"
+}, {
+"args": [  ],
+"method": "finishPlayerThrow"
+} ]
+}
+
+[sub_resource type="Animation" id=10]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -112,8 +143,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 0 ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "FiringHead"
+[sub_resource type="Animation" id=11]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("HeadSprite:position")
@@ -128,8 +158,7 @@ tracks/0/keys = {
 "values": [ Vector2( -1, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "Idle"
+[sub_resource type="Animation" id=12]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -145,7 +174,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=11]
+[sub_resource type="CircleShape2D" id=13]
 radius = 13.0
 
 [node name="Hologram" type="KinematicBody2D"]
@@ -164,10 +193,10 @@ hframes = 10
 
 [node name="TorsoSprite" type="Sprite" parent="."]
 rotation = 1.5708
-texture = ExtResource( 4 )
+texture = SubResource( 1 )
 offset = Vector2( 0, -5 )
-hframes = 10
-frame = 9
+hframes = 15
+frame = 14
 
 [node name="HeadSprite" type="Sprite" parent="."]
 position = Vector2( -1, 0 )
@@ -176,32 +205,33 @@ texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 collision_layer = 8
 
 [node name="Collider" parent="Hurtbox" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CameraFollow" type="RemoteTransform2D" parent="."]
 
 [node name="FeetAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "IdleFeet"
-anims/IdleFeet = SubResource( 3 )
-anims/WalkingFeet = SubResource( 4 )
+anims/IdleFeet = SubResource( 4 )
+anims/WalkingFeet = SubResource( 5 )
 
 [node name="TorsoAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "IdleTorso"
-anims/HoldingGunFiring = SubResource( 5 )
-anims/HoldingGunIdle = SubResource( 6 )
-anims/IdleTorso = SubResource( 7 )
-anims/WalkingTorso = SubResource( 8 )
+anims/HoldingGunFiring = SubResource( 6 )
+anims/HoldingGunIdle = SubResource( 7 )
+anims/IdleTorso = SubResource( 8 )
+anims/ThrowingGun = SubResource( 9 )
+anims/WalkingTorso = SubResource( 10 )
 
 [node name="HeadAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/FiringHead = SubResource( 9 )
-anims/Idle = SubResource( 10 )
+anims/FiringHead = SubResource( 11 )
+anims/Idle = SubResource( 12 )
 
 [node name="GunPickupRange" type="Area2D" parent="."]
 collision_layer = 0
@@ -209,7 +239,7 @@ collision_mask = 32
 
 [node name="Collider" type="CollisionShape2D" parent="GunPickupRange"]
 visible = false
-shape = SubResource( 11 )
+shape = SubResource( 13 )
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
 

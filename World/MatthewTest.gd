@@ -11,12 +11,13 @@ func _ready():
 	recorder.connect("player_death", self, "_on_player_death")
 	player.position = spawnPoint.position
 
-func _on_player_death(right, left, up, down, shots, drops):
+func _on_player_death(right, left, up, down, shots, drops, throws):
 	var holo = hologram.instance()
 	self.add_child(holo)
 	holo.get_node("Replayer").set_movement_dicts(right, left, up, down)
 	holo.get_node("Replayer").set_shot_dict(shots)
 	holo.get_node("Replayer").set_drop_dict(drops)
+	holo.get_node("Replayer").set_throw_dict(throws)
 	holo.position = spawnPoint.position
 	holo.get_node("Replayer").start_replaying()
 	
