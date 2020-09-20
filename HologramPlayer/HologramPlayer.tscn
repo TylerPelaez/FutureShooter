@@ -429,7 +429,6 @@ visible = false
 rotation = 4.71239
 texture = ExtResource( 7 )
 hframes = 6
-frame = 3
 
 [node name="DeathAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DeathAnimation1 = SubResource( 14 )

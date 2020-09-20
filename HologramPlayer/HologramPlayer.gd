@@ -114,7 +114,6 @@ func throwPlayerGun():
 func _on_GunPickupRange_area_entered(area):
 	overlappingGuns.append(area.get_parent())
 
-
 func _on_GunPickupRange_area_exited(area):
 	overlappingGuns.erase(area.get_parent())
 	
@@ -122,6 +121,7 @@ func finishPlayerThrow():
 	throwingGun = false
 
 func _on_PlayerStats_player_died():
+	dropPlayerGun()
 	dying = true
 	var animationIndex = randi() % 2 + 1
 	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))

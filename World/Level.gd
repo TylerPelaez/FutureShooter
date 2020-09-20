@@ -2,6 +2,16 @@ extends Node2D
 
 const HologramPlayer = preload("res://HologramPlayer/HologramPlayer.tscn")
 const Player = preload("res://Player/Player.tscn")
+const EnemyClass = preload("res://Enemies/Enemy.gd")
+const StationaryEnemyClass = preload("res://Enemies/StationaryEnemy.gd")
+
+enum WIN_CONDITION {
+	KILL_ALL
+}
+
+export var levelBackgroundColor := "#57142e"
+export (WIN_CONDITION) var winCondition = WIN_CONDITION.KILL_ALL
+export var SPAWN_PLAYER_WITH_GUN := false
 
 enum {
 	RIGHT,
@@ -16,12 +26,23 @@ enum {
 
 onready var spawnPoint = $SpawnPoint
 onready var camera = $Camera
+onready var victoryTimer = $VictoryTimer
 
 var player = null
 var recorder = null
+var enemies = []
+var playerDied = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	VisualServer.set_default_clear_color(Color(levelBackgroundColor))
+	
+	if winCondition == WIN_CONDITION.KILL_ALL:
+		for child in get_children():
+			if child is EnemyClass or child is StationaryEnemyClass:
+				enemies.append(child)
+				child.connect("enemy_died", self, "_on_Enemy_died")
+	
 	spawnPlayer()
 	
 	if !PersistentRecordedInput.get_state().empty():
@@ -29,6 +50,10 @@ func _ready():
 		PersistentRecordedInput.clear_state()
 
 func _on_player_death(right, left, up, down, shots, drops, throws, rotations):
+	playerDied = true
+	restartScene(right,left,up,down,shots,drops,throws,rotations)
+
+func restartScene(right, left, up, down, shots, drops, throws, rotations):
 	var newState = {
 		RIGHT: right,
 		LEFT: left,
@@ -42,16 +67,15 @@ func _on_player_death(right, left, up, down, shots, drops, throws, rotations):
 	PersistentRecordedInput.set_state(newState)
 	get_tree().reload_current_scene()
 
-
 func spawnPlayer():
 	player = Player.instance()
+	player.SPAWN_WITH_GUN = SPAWN_PLAYER_WITH_GUN
 	self.add_child(player)
 	player.global_position = spawnPoint.global_position
 	player.setCameraFollow(camera)
 	
 	recorder = player.get_node("Recorder")
 	recorder.connect("player_death", self, "_on_player_death")
-
 
 func spawnHologram(state):
 	# Forgive me master, just this once, I must go all out
@@ -65,6 +89,7 @@ func spawnHologram(state):
 	var rotations = state[ROTATIONS]
 	
 	var holo = HologramPlayer.instance()
+	holo.SPAWN_WITH_GUN = SPAWN_PLAYER_WITH_GUN
 	self.add_child(holo)
 	var replayer = holo.get_node("Replayer")
 	
@@ -76,3 +101,18 @@ func spawnHologram(state):
 
 	holo.global_position = spawnPoint.global_position
 	replayer.start_replaying()
+
+func winLevel():
+	if not playerDied:
+		get_tree().reload_current_scene()
+
+func _on_Enemy_died(enemy):
+	if winCondition == WIN_CONDITION.KILL_ALL:
+		enemies.erase(enemy)
+		if enemies.size() <= 0 and not playerDied:
+			victoryTimer.start()
+
+
+
+func _on_VictoryTimer_timeout():
+	winLevel()

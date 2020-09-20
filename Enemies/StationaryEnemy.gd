@@ -23,8 +23,9 @@ func _ready():
 	if SPAWN_WITH_GUN:
 		spawnEnemyGun()
 	var initialDirection = patrolPoints.start_patrol()
+
 	if initialDirection != null:
-		turn(initialDirection)
+		look_at(initialDirection)
 		
 func _physics_process(delta):
 	seek_player()
@@ -45,6 +46,8 @@ func end_patrol():
 	patrolPoints.stop_patrol()
 
 func turn(targetPosition):
+	
+	print(targetPosition)
 	var initial_transform = Vector2(global_position.x, global_position.y)
 	var duration = abs(targetPosition.x - initial_transform.x) / ROTATION_SPEED
 	
@@ -59,7 +62,7 @@ func spawnEnemyGun():
 
 func _on_PatrolPoints_new_patrol_point(newPoint):
 	if state == PATROL:
-		turn(newPoint)
+		look_at(newPoint)
 
 func _on_SeekPlayerTimer_timeout():
 	state = PATROL

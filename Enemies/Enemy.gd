@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal enemy_died(enemy)
 onready var stats = $EnemyStats
 onready var blood = load("res://Particles/EnemyBlood.tscn")
 onready var deathAnimationPlayer = $deathAnimationPlayer
@@ -21,5 +22,5 @@ func _on_EnemyStats_enemy_died():
 	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
 	
 func killEnemy():
+	emit_signal("enemy_died", self)
 	queue_free()
-
