@@ -1,19 +1,20 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://World/Crate.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Terrain/Crate/Crate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://World/MatthewTest.gd" type="Script" id=5]
 [ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Guns/Gun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Terrain/Electrical Box/ElectricalBox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Terrain/Forklift/Forklift.tscn" type="PackedScene" id=9]
 
 [node name="MatthewTest" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 118, 47 )
-SPAWN_WITH_GUN = false
 
 [node name="TorsoSprite" parent="Player" index="2"]
 frame = 9
@@ -34,9 +35,6 @@ position = Vector2( 192, 61 )
 [node name="StationaryEnemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 70, 129 )
 
-[node name="Crate" parent="." instance=ExtResource( 4 )]
-position = Vector2( 97, 84 )
-
 [node name="SpawnPoint" type="Position2D" parent="."]
 
 [node name="Gun" parent="." instance=ExtResource( 7 )]
@@ -46,5 +44,15 @@ position = Vector2( 40.5266, 7.68937 )
 
 [node name="Pistol" parent="." instance=ExtResource( 6 )]
 position = Vector2( 38.064, -0.179565 )
+
+[node name="Node2D" parent="." instance=ExtResource( 4 )]
+position = Vector2( 74.7996, 36.1681 )
+rotation = -0.00613701
+
+[node name="Node2D" parent="Node2D" instance=ExtResource( 8 )]
+position = Vector2( -20.6017, -0.37458 )
+
+[node name="Node2D2" parent="Node2D" instance=ExtResource( 9 )]
+position = Vector2( -58.2979, 41.3843 )
 
 [editable path="Player"]
