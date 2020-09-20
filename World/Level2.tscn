@@ -31,4 +31,8 @@ MAX_AMMO = 100
 [node name="Pistol2" parent="." index="5" instance=ExtResource( 5 )]
 position = Vector2( 130, 114 )
 
+[node name="VictoryTimer" type="Timer" parent="." index="6"]
+wait_time = 0.6
+[connection signal="timeout" from="VictoryTimer" to="." method="_on_VictoryTimer_timeout"]
+
 [editable path="StationaryEnemy"]
