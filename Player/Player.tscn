@@ -330,12 +330,7 @@ texture = ExtResource( 5 )
 offset = Vector2( 0, -5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-<<<<<<< HEAD
-position = Vector2( 2, 0 )
-shape = SubResource( 11 )
-=======
 shape = SubResource( 1 )
->>>>>>> db3be928275d2dc0cdd48d37aeec9eac6358c42f
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -371,12 +366,8 @@ collision_layer = 0
 collision_mask = 32
 
 [node name="Collider" type="CollisionShape2D" parent="GunPickupRange"]
-<<<<<<< HEAD
-shape = SubResource( 14 )
-=======
 visible = false
 shape = SubResource( 11 )
->>>>>>> db3be928275d2dc0cdd48d37aeec9eac6358c42f
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
 
