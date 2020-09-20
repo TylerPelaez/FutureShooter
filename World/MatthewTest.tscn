@@ -1,17 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World/Crate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://World/MatthewTest.gd" type="Script" id=5]
+[ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Guns/Gun.tscn" type="PackedScene" id=7]
 
 [node name="MatthewTest" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 118, 47 )
-SPAWN_WITH_GUN = true
+SPAWN_WITH_GUN = false
+
+[node name="TorsoSprite" parent="Player" index="2"]
+frame = 9
 
 [node name="CameraFollow" parent="Player" index="6"]
 remote_path = NodePath("../../Camera2D")
@@ -33,5 +38,13 @@ position = Vector2( 70, 129 )
 position = Vector2( 97, 84 )
 
 [node name="SpawnPoint" type="Position2D" parent="."]
+
+[node name="Gun" parent="." instance=ExtResource( 7 )]
+
+[node name="Pistol" parent="Gun" instance=ExtResource( 6 )]
+position = Vector2( 40.5266, 7.68937 )
+
+[node name="Pistol" parent="." instance=ExtResource( 6 )]
+position = Vector2( 38.064, -0.179565 )
 
 [editable path="Player"]

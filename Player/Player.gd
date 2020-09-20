@@ -55,6 +55,7 @@ func _physics_process(delta):
 		if playerGun != null:
 			throwingGun = true
 			torsoAnimationPlayer.play("ThrowingGun")
+			recorder.log_throw(get_global_mouse_position())
 	
 func get_input_vector():
 	var input_vector = Vector2.ZERO

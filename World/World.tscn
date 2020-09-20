@@ -8,6 +8,9 @@
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 54.3947, 40.3789 )
 
+[node name="TorsoSprite" parent="Player" index="2"]
+frame = 9
+
 [node name="CameraFollow" parent="Player" index="6"]
 remote_path = NodePath("../../Camera2D")
 

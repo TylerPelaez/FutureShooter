@@ -5,11 +5,13 @@ const PlayerGun = preload("res://Guns/Pistol.tscn")
 export var ACCELERATION := 500
 export var MAX_SPEED := 100
 export var FRICTION := 500
-export var SPAWN_WITH_GUN := true
+export var SPAWN_WITH_GUN := false
+export var THROW_FORCE := 500
 
 var velocity = Vector2.ZERO
 var playerGun = null
 var overlappingGuns = []
+var throwingGun = false
 
 onready var headAnimationPlayer = $HeadAnimationPlayer
 onready var torsoAnimationPlayer = $TorsoAnimationPlayer
@@ -37,7 +39,7 @@ func _physics_process(delta):
 	
 	move()
 	
-	if replayer.get_gun_dropped():
+	if not throwingGun and replayer.get_gun_dropped():
 		if playerGun == null and !overlappingGuns.empty():
 			pickupPlayerGun(overlappingGuns[0])
 		elif playerGun != null and !overlappingGuns.empty():
@@ -46,6 +48,13 @@ func _physics_process(delta):
 			pickupPlayerGun(gunToPickup)
 		elif playerGun != null:
 			dropPlayerGun()
+			
+	var isGunThrown = replayer.get_gun_thrown()
+	if not throwingGun and isGunThrown:
+		if playerGun != null:
+			throwingGun = true
+			look_at(isGunThrown)
+			torsoAnimationPlayer.play("ThrowingGun")
 
 	# If the player originally fired at this time, and the hologram can fire,
 	# shoot a bullet!
@@ -86,9 +95,18 @@ func dropPlayerGun():
 		playerGun.drop(get_tree().current_scene, global_position, global_rotation)
 		playerGun = null
 
+func throwPlayerGun():
+	if playerGun != null:
+		var throwDirection = get_transform().basis_xform(Vector2.RIGHT)
+		playerGun.throw(get_tree().current_scene, global_position, global_rotation, throwDirection * THROW_FORCE)
+		playerGun = null
+
 func _on_GunPickupRange_area_entered(area):
 	overlappingGuns.append(area.get_parent())
 
 
 func _on_GunPickupRange_area_exited(area):
 	overlappingGuns.erase(area.get_parent())
+	
+func finishPlayerThrow():
+	throwingGun = false
