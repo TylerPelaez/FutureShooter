@@ -149,11 +149,7 @@ tracks/0/keys = {
 radius = 13.0
 
 [node name="Hologram" type="KinematicBody2D"]
-<<<<<<< HEAD
-collision_layer = 2147483650
-=======
 collision_layer = 2
->>>>>>> db3be928275d2dc0cdd48d37aeec9eac6358c42f
 collision_mask = 17
 script = ExtResource( 6 )
 
