@@ -6,6 +6,7 @@
 [ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=4]
 
 [node name="Level1" instance=ExtResource( 2 )]
+LEVEL_NUMBER = 1
 
 [node name="SpawnPoint" parent="." index="1"]
 position = Vector2( 104, 56 )

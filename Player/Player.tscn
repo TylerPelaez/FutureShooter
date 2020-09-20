@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/PC_Torso.png" type="Texture" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://Player/PC_Die.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 8.0
+radius = 5.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -481,6 +481,58 @@ tracks/5/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "SetVisible"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("DeathSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FeetSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TorsoSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HeadSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 17
@@ -502,10 +554,8 @@ rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 hframes = 15
-frame = 8
 
 [node name="HeadSprite" type="Sprite" parent="."]
-position = Vector2( -1, 0 )
 rotation = 1.5708
 texture = ExtResource( 5 )
 offset = Vector2( 0, -5 )
@@ -558,11 +608,14 @@ rotation = 4.71239
 z_index = 1
 texture = ExtResource( 8 )
 hframes = 6
+frame = 3
 
 [node name="DeathAnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "SetVisible"
 playback_speed = 0.5
 anims/DeathAnimation1 = SubResource( 13 )
 anims/DeathAnimation2 = SubResource( 14 )
+anims/SetVisible = SubResource( 15 )
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
