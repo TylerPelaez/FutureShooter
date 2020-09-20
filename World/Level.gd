@@ -9,9 +9,11 @@ enum WIN_CONDITION {
 	KILL_ALL
 }
 
+
 export var levelBackgroundColor := "#57142e"
 export (WIN_CONDITION) var winCondition = WIN_CONDITION.KILL_ALL
 export var SPAWN_PLAYER_WITH_GUN := false
+export var LEVEL_NUMBER := 0
 
 enum {
 	RIGHT,
@@ -102,17 +104,16 @@ func spawnHologram(state):
 	holo.global_position = spawnPoint.global_position
 	replayer.start_replaying()
 
+
 func winLevel():
 	if not playerDied:
-		get_tree().reload_current_scene()
+		get_tree().change_scene(Utils.get_scene(LEVEL_NUMBER + 1))
 
 func _on_Enemy_died(enemy):
 	if winCondition == WIN_CONDITION.KILL_ALL:
 		enemies.erase(enemy)
 		if enemies.size() <= 0 and not playerDied:
 			victoryTimer.start()
-
-
 
 func _on_VictoryTimer_timeout():
 	winLevel()

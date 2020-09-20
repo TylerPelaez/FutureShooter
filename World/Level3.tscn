@@ -6,6 +6,7 @@
 
 [node name="Level3" instance=ExtResource( 3 )]
 levelBackgroundColor = "#0a4b4d"
+LEVEL_NUMBER = 3
 
 [node name="Camera" parent="." index="0"]
 position = Vector2( 111, 41 )
@@ -19,12 +20,9 @@ tile_data = PoolIntArray( -262130, 0, 3, -262124, 0, 3, -196594, 0, 65539, -1965
 [node name="Pistol2" parent="." index="3" instance=ExtResource( 1 )]
 position = Vector2( 112, 56 )
 
-[node name="VictoryTimer" type="Timer" parent="." index="4"]
-
 [node name="StationaryEnemy" parent="." index="5" instance=ExtResource( 2 )]
 position = Vector2( 264, 80 )
 rotation = 3.14159
 
 [node name="StationaryEnemy2" parent="." index="6" instance=ExtResource( 2 )]
 position = Vector2( 312, 24 )
-[connection signal="timeout" from="VictoryTimer" to="." method="_on_VictoryTimer_timeout"]

@@ -28,7 +28,8 @@ func _ready():
 		look_at(initialDirection)
 		
 func _physics_process(delta):
-	seek_player()
+	if !dying:
+		seek_player()
 	
 func seek_player():
 	var target = playerDetectionZone.getTarget()
@@ -46,8 +47,6 @@ func end_patrol():
 	patrolPoints.stop_patrol()
 
 func turn(targetPosition):
-	
-	print(targetPosition)
 	var initial_transform = Vector2(global_position.x, global_position.y)
 	var duration = abs(targetPosition.x - initial_transform.x) / ROTATION_SPEED
 	
@@ -67,3 +66,11 @@ func _on_PatrolPoints_new_patrol_point(newPoint):
 func _on_SeekPlayerTimer_timeout():
 	state = PATROL
 	patrolPoints.start_patrol()
+
+func dropEnemyGun():
+	if enemyGun != null:
+		enemyGun.drop(get_tree().current_scene, global_position, global_rotation)
+		enemyGun = null
+
+func _on_EnemyStats_enemy_died_Stationary():
+		dropEnemyGun()
