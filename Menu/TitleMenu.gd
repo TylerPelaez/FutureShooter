@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready():
-	VisualServer.set_default_clear_color(Color("#6c349d"))
+	VisualServer.set_default_clear_color(Color("#238531"))
 
 
 func _on_Button_pressed():

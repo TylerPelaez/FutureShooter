@@ -29,6 +29,9 @@ enum {
 onready var spawnPoint = $SpawnPoint
 onready var camera = $Camera
 onready var victoryTimer = $VictoryTimer
+onready var resetChoice = $CanvasLayer/ResetChoice
+onready var clearButton = $CanvasLayer/ResetChoice/ClearButton
+onready var keepButton = $CanvasLayer/ResetChoice/KeepButton
 
 var player = null
 var recorder = null
@@ -53,9 +56,6 @@ func _ready():
 
 func _on_player_death(right, left, up, down, shots, drops, throws, rotations):
 	playerDied = true
-	restartScene(right,left,up,down,shots,drops,throws,rotations)
-
-func restartScene(right, left, up, down, shots, drops, throws, rotations):
 	var newState = {
 		RIGHT: right,
 		LEFT: left,
@@ -67,6 +67,12 @@ func restartScene(right, left, up, down, shots, drops, throws, rotations):
 		ROTATIONS: rotations
 	}
 	PersistentRecordedInput.set_state(newState)
+	
+	resetChoice.visible = true
+	clearButton.disabled = false
+	keepButton.disabled = false
+
+func restartScene():
 	get_tree().reload_current_scene()
 
 func spawnPlayer():
@@ -115,5 +121,17 @@ func _on_Enemy_died(enemy):
 		if enemies.size() <= 0 and not playerDied:
 			victoryTimer.start()
 
+
+	
+
 func _on_VictoryTimer_timeout():
 	winLevel()
+
+
+func _on_ClearButton_pressed():
+	PersistentRecordedInput.clear_state()
+	restartScene()
+
+
+func _on_KeepButton_pressed():
+	restartScene()
