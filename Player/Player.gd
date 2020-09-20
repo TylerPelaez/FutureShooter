@@ -14,21 +14,29 @@ var velocity = Vector2.ZERO
 var playerGun = null
 var overlappingGuns = []
 var throwingGun = false
+var dying = false
 
+onready var stats = $PlayerStats
 onready var gunPickupRange = $GunPickupRange
 onready var headAnimationPlayer = $HeadAnimationPlayer
 onready var torsoAnimationPlayer = $TorsoAnimationPlayer
 onready var feetAnimationPlayer = $FeetAnimationPlayer
+onready var deathAnimationPlayer = $DeathAnimationPlayer
 onready var cameraFollow = $CameraFollow
 onready var feetSprite = $FeetSprite
 onready var feetSpriteDefaultRotation = feetSprite.rotation
 onready var recorder = $Recorder
 
 func _ready():
+	# Give us a random seed every time
+	randomize()
 	if SPAWN_WITH_GUN:
 		pickupPlayerGun(PlayerGun.instance())
 
 func _physics_process(delta):
+	if dying:
+		return
+	
 	var input_vector = get_input_vector()
 	if input_vector != Vector2.ZERO:
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
@@ -121,6 +129,14 @@ func _on_GunPickupRange_area_entered(area):
 func _on_GunPickupRange_area_exited(area):
 	overlappingGuns.erase(area.get_parent())
 
-
 func finishPlayerThrow():
 	throwingGun = false
+
+func _on_PlayerStats_player_died():
+	dying = true
+	var animationIndex = randi() % 2 + 1
+	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
+	
+func _on_Hurtbox_hit(damage):
+	if not dying:
+		stats.health -= damage
