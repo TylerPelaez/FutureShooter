@@ -3,12 +3,12 @@
 [ext_resource path="res://Terrain/Forklift/forklift.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 14.9391 )
+extents = Vector2( 10, 9.97954 )
 
 [node name="Node2D" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -15 )
+position = Vector2( 0, -10 )
 rotation = 0.00311368
 shape = SubResource( 1 )
 

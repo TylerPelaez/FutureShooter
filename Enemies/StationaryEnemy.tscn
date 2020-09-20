@@ -109,6 +109,9 @@ anims/IdleHoldingGun = SubResource( 3 )
 wait_time = 5.0
 
 [node name="PatrolPoints" parent="." index="10" instance=ExtResource( 7 )]
+
+[node name="DeathSprite" parent="." index="11"]
+frame = 0
 [connection signal="timeout" from="SeekPlayerTimer" to="." method="_on_SeekPlayerTimer_timeout"]
 [connection signal="new_patrol_point" from="PatrolPoints" to="." method="_on_PatrolPoints_new_patrol_point"]
 

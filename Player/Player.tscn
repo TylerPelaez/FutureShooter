@@ -327,7 +327,7 @@ radius = 13.0
 
 [sub_resource type="Animation" id=13]
 resource_name = "DeathAnimation2"
-length = 0.4
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("DeathSprite:frame")
 tracks/0/interp = 1
@@ -543,6 +543,7 @@ anims/FiringHead = SubResource( 10 )
 anims/Idle = SubResource( 11 )
 
 [node name="GunPickupRange" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 
@@ -558,9 +559,9 @@ rotation = 4.71239
 z_index = 1
 texture = ExtResource( 8 )
 hframes = 6
-frame = 3
 
 [node name="DeathAnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.5
 anims/DeathAnimation1 = SubResource( 13 )
 anims/DeathAnimation2 = SubResource( 14 )
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]

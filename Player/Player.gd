@@ -26,6 +26,7 @@ onready var deathAnimationPlayer = $DeathAnimationPlayer
 onready var cameraFollow = $CameraFollow
 onready var feetSprite = $FeetSprite
 onready var feetSpriteDefaultRotation = feetSprite.rotation
+onready var blood = load("res://Particles/PlayerBlood.tscn")
 onready var recorder = $Recorder
 
 onready var speed = MAX_SPEED
@@ -145,7 +146,12 @@ func _on_PlayerStats_player_died():
 	var animationIndex = randi() % 2 + 1
 	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
 	
-func _on_Hurtbox_hit(damage):
+func _on_Hurtbox_hit(damage, pos, angle):
+	var newBleed = blood.instance()
+	add_child(newBleed)
+	newBleed.global_position = pos
+	newBleed.global_rotation = int(angle + (randi() % 2 - 1) + 180) % 360
+	newBleed.restart()
 	if not dying:
 		stats.health -= damage
 
