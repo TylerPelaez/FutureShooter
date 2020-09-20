@@ -49,4 +49,10 @@ rotation = 3.14159
 position = Vector2( 180, 84 )
 MAX_AMMO = 20
 
+[node name="Crate6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 144, 72 )
+
+[node name="Crate7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 144, 104 )
+
 [editable path="Player"]

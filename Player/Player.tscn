@@ -77,6 +77,23 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 8.0 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "slowPlayer"
+}, {
+"args": [  ],
+"method": "resetSpeed"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "HoldingGunIdle"
@@ -205,11 +222,17 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
+"method": "slowPlayer"
+}, {
+"args": [  ],
 "method": "throwPlayerGun"
+}, {
+"args": [  ],
+"method": "resetSpeed"
 }, {
 "args": [  ],
 "method": "finishPlayerThrow"
@@ -480,7 +503,7 @@ rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 hframes = 15
-frame = 14
+frame = 13
 
 [node name="HeadSprite" type="Sprite" parent="."]
 position = Vector2( -1, 0 )

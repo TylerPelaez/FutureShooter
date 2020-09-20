@@ -9,6 +9,7 @@ export var AIM_SPEED := 1
 export var CAMERA_POSITION_OFFSET_DENOMINATOR := 4
 export var SPAWN_WITH_GUN := false
 export var THROW_FORCE := 500
+export var SLOW_SPEED := 50
 
 var velocity = Vector2.ZERO
 var playerGun = null
@@ -27,6 +28,8 @@ onready var feetSprite = $FeetSprite
 onready var feetSpriteDefaultRotation = feetSprite.rotation
 onready var recorder = $Recorder
 
+onready var speed = MAX_SPEED
+
 func _ready():
 	# Give us a random seed every time
 	randomize()
@@ -39,7 +42,7 @@ func _physics_process(delta):
 	
 	var input_vector = get_input_vector()
 	if input_vector != Vector2.ZERO:
-		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
+		velocity = velocity.move_toward(input_vector * speed, ACCELERATION * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
@@ -123,9 +126,14 @@ func throwPlayerGun():
 		playerGun.throw(get_tree().current_scene, global_position, global_rotation, throwDirection * THROW_FORCE)
 		playerGun = null
 
+func slowPlayer():
+	speed = SLOW_SPEED
+
+func resetSpeed():
+	speed = MAX_SPEED
+
 func _on_GunPickupRange_area_entered(area):
 	overlappingGuns.append(area.get_parent())
-
 
 func _on_GunPickupRange_area_exited(area):
 	overlappingGuns.erase(area.get_parent())
