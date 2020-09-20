@@ -2,6 +2,16 @@ extends Node2D
 
 const HologramPlayer = preload("res://HologramPlayer/HologramPlayer.tscn")
 const Player = preload("res://Player/Player.tscn")
+const EnemyClass = preload("res://Enemies/Enemy.gd")
+
+
+enum WIN_CONDITION {
+	KILL_ALL
+}
+
+export var levelBackgroundColor := "#57142e"
+export (WIN_CONDITION) var winCondition = WIN_CONDITION.KILL_ALL
+
 
 enum {
 	RIGHT,
@@ -19,9 +29,18 @@ onready var camera = $Camera
 
 var player = null
 var recorder = null
+var enemies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	VisualServer.set_default_clear_color(Color(levelBackgroundColor))
+	
+	if winCondition == WIN_CONDITION.KILL_ALL:
+		for child in get_children():
+			if child is EnemyClass:
+				enemies.append(child)
+				child.connect("enemy_died", self, "_on_Enemy_died")
+	
 	spawnPlayer()
 	
 	if !PersistentRecordedInput.get_state().empty():
@@ -29,6 +48,9 @@ func _ready():
 		PersistentRecordedInput.clear_state()
 
 func _on_player_death(right, left, up, down, shots, drops, throws, rotations):
+	restartScene(right,left,up,down,shots,drops,throws,rotations)
+
+func restartScene(right, left, up, down, shots, drops, throws, rotations):
 	var newState = {
 		RIGHT: right,
 		LEFT: left,
@@ -41,7 +63,6 @@ func _on_player_death(right, left, up, down, shots, drops, throws, rotations):
 	}
 	PersistentRecordedInput.set_state(newState)
 	get_tree().reload_current_scene()
-
 
 func spawnPlayer():
 	player = Player.instance()
@@ -76,3 +97,12 @@ func spawnHologram(state):
 
 	holo.global_position = spawnPoint.global_position
 	replayer.start_replaying()
+
+func winLevel():
+	pass
+
+func _on_Enemy_died(enemy):
+	if winCondition == WIN_CONDITION.KILL_ALL:
+		enemies.erase(enemy)
+		if enemies.size() <= 0:
+			winLevel()

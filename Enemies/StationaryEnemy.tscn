@@ -9,7 +9,7 @@
 [ext_resource path="res://Enemies/PatrolPoints.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, 450, -225, 450, 225 )
+points = PoolVector2Array( 0, 0, 450, -450, 450, 450 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Firing"
