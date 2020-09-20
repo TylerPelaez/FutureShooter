@@ -1,10 +1,12 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://HologramPlayer/InputReplayer.gd" type="Script" id=1]
 [ext_resource path="res://HologramPlayer/Holo_Head.png" type="Texture" id=2]
 [ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player/PlayerStats.tscn" type="PackedScene" id=4]
 [ext_resource path="res://HologramPlayer/Holo_Feet.png" type="Texture" id=5]
 [ext_resource path="res://HologramPlayer/HologramPlayer.gd" type="Script" id=6]
+[ext_resource path="res://HologramPlayer/Holo_Body.png" type="Texture" id=7]
 
 [sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/Holo_Torso.png-73fff6b2c41e4d88926acb6c6ad17482.stex"
@@ -177,6 +179,162 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=13]
 radius = 13.0
 
+[sub_resource type="Animation" id=14]
+resource_name = "DeathAnimation1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("DeathSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DeathSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FeetSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TorsoSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HeadSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "DeathAnimation2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("DeathSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DeathSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FeetSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TorsoSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HeadSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
 [node name="Hologram" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 17
@@ -196,15 +354,14 @@ rotation = 1.5708
 texture = SubResource( 1 )
 offset = Vector2( 0, -5 )
 hframes = 15
-frame = 14
 
 [node name="HeadSprite" type="Sprite" parent="."]
-position = Vector2( -1, 0 )
 rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 2 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
@@ -240,7 +397,22 @@ collision_mask = 32
 [node name="Collider" type="CollisionShape2D" parent="GunPickupRange"]
 visible = false
 shape = SubResource( 13 )
+
+[node name="PlayerStats" parent="." instance=ExtResource( 4 )]
+
+[node name="DeathSprite" type="Sprite" parent="."]
+visible = false
+rotation = 4.71239
+texture = ExtResource( 7 )
+hframes = 6
+frame = 3
+
+[node name="DeathAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DeathAnimation1 = SubResource( 14 )
+anims/DeathAnimation2 = SubResource( 15 )
+[connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]
+[connection signal="player_died" from="PlayerStats" to="." method="_on_PlayerStats_player_died"]
 
 [editable path="Hurtbox"]

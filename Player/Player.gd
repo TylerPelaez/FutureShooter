@@ -31,8 +31,7 @@ onready var recorder = $Recorder
 onready var speed = MAX_SPEED
 
 func _ready():
-	# Give us a random seed every time
-	randomize()
+	recorder.start_recording()
 	if SPAWN_WITH_GUN:
 		pickupPlayerGun(PlayerGun.instance())
 
@@ -149,3 +148,10 @@ func _on_PlayerStats_player_died():
 func _on_Hurtbox_hit(damage):
 	if not dying:
 		stats.health -= damage
+
+func killPlayer():
+	recorder.player_died()
+	queue_free()
+
+func setCameraFollow(camera):
+	cameraFollow.remote_path = camera.get_path()

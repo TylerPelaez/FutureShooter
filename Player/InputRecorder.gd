@@ -16,7 +16,6 @@ var gunThrown = {}
 var physicsFrame = 0
 var start = false
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	physicsFrame = 0
@@ -27,17 +26,13 @@ func _physics_process(delta):
 		log_input()
 		log_drop()
 		
-		# For testing
-		if Input.is_key_pressed(KEY_K):
-			player_died()
 	# For testing
 	elif Input.is_key_pressed(KEY_R):
 		start_recording()
-	
+
 func start_recording():
 	start = true	
-	print("RECORDING STARTED")
-	
+
 func reset():
 	physicsFrame = 0
 	moveRight = {}
@@ -48,7 +43,7 @@ func reset():
 	gunDropped = {}
 	gunThrown = {}
 	start = false
-		
+
 func log_input():
 	# Check for WASD movement and log to corresponding dict
 	var right = Input.get_action_strength("ui_right")
@@ -64,23 +59,23 @@ func log_input():
 		moveUp[physicsFrame] = up
 	if down:
 		moveDown[physicsFrame] = down
-		
+
 # Called externally from Player.gd
 func log_shot(mousePos):
 	# Check if shot was fired and log mousePos at that moment
 	if start:
 		shootDirection[physicsFrame] = 	mousePos
-		
+
 func log_drop():
 	# Check if gun was dropped during this physicsFrame, and log if so
 	if Input.is_action_just_pressed("interact"):
 		gunDropped[physicsFrame] = true
-		
+
 func log_throw(mousePos):
 	# Check if gun was thrown during this physicsFrame, and log mousePos if so
 	if start:
 		gunThrown[physicsFrame] = mousePos
-	
+
 # When the player dies, send the input data through a series of signals		
 func player_died():
 	emit_signal("player_death", moveRight, moveLeft, moveUp, moveDown, shootDirection, gunDropped, gunThrown)

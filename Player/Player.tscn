@@ -10,7 +10,7 @@
 [ext_resource path="res://Player/PC_Die.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 8.0
+radius = 5.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -399,7 +399,7 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "queue_free"
+"method": "killPlayer"
 } ]
 }
 
@@ -477,7 +477,7 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "queue_free"
+"method": "killPlayer"
 } ]
 }
 
@@ -503,7 +503,6 @@ rotation = 1.5708
 texture = ExtResource( 2 )
 offset = Vector2( 0, -5 )
 hframes = 15
-frame = 13
 
 [node name="HeadSprite" type="Sprite" parent="."]
 position = Vector2( -1, 0 )
@@ -558,7 +557,7 @@ visible = false
 rotation = 4.71239
 texture = ExtResource( 8 )
 hframes = 6
-frame = 5
+frame = 3
 
 [node name="DeathAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DeathAnimation1 = SubResource( 13 )

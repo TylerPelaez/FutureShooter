@@ -2,9 +2,11 @@ extends Area2D
 
 export var VISION_RANGE := 50
 
+#TODO: not tunnel vision on 1 player / hologram
+
 var playerExited = true
 var detectedPlayer = false
-onready var player = get_tree().current_scene.get_node("Player")
+var player = null
 
 # Raycast to player position, with appropriate mask, check if we hit player or world
 func canSeePlayer():
@@ -16,10 +18,12 @@ func canSeePlayer():
 		return false
 
 func _on_PlayerDetectionZone_body_exited(body):
+	player = null
 	playerExited = true
 	detectedPlayer = false
 
 func _on_PlayerDetectionZone_body_entered(body):
+	player = body
 	playerExited = false
 	if canSeePlayer():
 		detectedPlayer = true

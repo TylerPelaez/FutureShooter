@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Utils="*res://Utils.gd"
+PersistentRecordedInput="*res://PersistentRecordedInput.gd"
 
 [display]
 

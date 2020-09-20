@@ -12,10 +12,12 @@ var velocity = Vector2.ZERO
 var playerGun = null
 var overlappingGuns = []
 var throwingGun = false
+var dying = false
 
 onready var headAnimationPlayer = $HeadAnimationPlayer
 onready var torsoAnimationPlayer = $TorsoAnimationPlayer
 onready var feetAnimationPlayer = $FeetAnimationPlayer
+onready var deathAnimationPlayer = $DeathAnimationPlayer
 onready var feetSprite = $FeetSprite
 onready var feetSpriteDefaultRotation = feetSprite.rotation
 onready var torsoSprite = $TorsoSprite
@@ -23,6 +25,7 @@ onready var torsoSpriteDefaultRotation = torsoSprite.rotation
 onready var headSprite = $HeadSprite
 onready var headSpriteDefaultRotation = headSprite.rotation
 onready var replayer = $Replayer
+onready var playerStats = $PlayerStats
 
 # TODO: Don't instantiate the gun on init
 func _ready():
@@ -30,6 +33,9 @@ func _ready():
 		pickupPlayerGun(PlayerGun.instance())
 
 func _physics_process(delta):
+	if dying:
+		return
+	
 	# Base movement off of replay recording
 	var input_vector = replayer.get_input_vector()
 	if input_vector != Vector2.ZERO:
@@ -79,7 +85,6 @@ func update_animation(input_vector):
 		if playerGun == null:
 			torsoAnimationPlayer.play("IdleTorso")
 
-
 func move():
 	velocity = move_and_slide(velocity)
 
@@ -110,3 +115,12 @@ func _on_GunPickupRange_area_exited(area):
 	
 func finishPlayerThrow():
 	throwingGun = false
+
+func _on_PlayerStats_player_died():
+	dying = true
+	var animationIndex = randi() % 2 + 1
+	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
+
+func _on_Hurtbox_hit(damage):
+	if not dying:
+		playerStats.health -= damage
