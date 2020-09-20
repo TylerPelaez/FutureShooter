@@ -4,48 +4,52 @@ export var VISION_RANGE := 50
 
 #TODO: not tunnel vision on 1 player / hologram
 
-var playerExited = true
-var detectedPlayer = false
-var player = null
+var mainPlayer = null
+var backupPlayer = null
 
 # Raycast to player position, with appropriate mask, check if we hit player or world
-func canSeePlayer():
+func canSeePlayerCharacter(character_seeking):
 	var space_state = get_world_2d().direct_space_state
-	var result = space_state.intersect_ray(global_position, player.global_position, [self], getPlayerAndWorldMask())
-	if result != null and result.collider == player:
+	var result = space_state.intersect_ray(global_position, character_seeking.global_position, [self], getPlayerAndWorldMask())
+	if result != null and result.collider == character_seeking:
 		return true
 	else:
 		return false
 
 func _on_PlayerDetectionZone_body_exited(body):
-	player = null
-	playerExited = true
-	detectedPlayer = false
+	if mainPlayer == body:
+		# either mainPlayer is now null, or the previous backup is now the main target.
+		mainPlayer = backupPlayer
+	
+	backupPlayer = null
 
 func _on_PlayerDetectionZone_body_entered(body):
-	player = body
-	playerExited = false
-	if canSeePlayer():
-		detectedPlayer = true
+	if mainPlayer != null:
+		backupPlayer = body
+	else:
+		mainPlayer = body
 
 # Expected that this will be called by the parent node in physics process step
-func isAwareOfPlayer():
+# this is 100% cheesable, maybe risky tho
+func getTarget():
 	# Shortcut to avoid unnecesary raycasts
-	if playerExited:
-		return false
+	if mainPlayer == null:
+		return null
 	
-	var canSeePlayer = canSeePlayer()
+	var canSeeMainPlayer = canSeePlayerCharacter(mainPlayer)
 	
-	if detectedPlayer and !canSeePlayer:
-		detectedPlayer = false
-	elif not playerExited and not detectedPlayer and canSeePlayer:
-		detectedPlayer = true
-	
-	return detectedPlayer
-
-# So the zone's parent can know where the player is, without needing to also hold on to a reference to the player
-func getPlayerPosition():
-	return player.global_position
+	if !canSeeMainPlayer:
+		if backupPlayer != null:
+			var canSeeBackupPlayer = canSeePlayerCharacter(backupPlayer)
+			if canSeeBackupPlayer:
+				var temp = mainPlayer
+				mainPlayer = backupPlayer
+				backupPlayer = temp
+				
+				return mainPlayer
+		return null
+	else:
+		return mainPlayer
 
 func getPlayerAndWorldMask():
 	return pow(2, 0) + pow(2, 1)

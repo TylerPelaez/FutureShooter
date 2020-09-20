@@ -1,28 +1,49 @@
 extends "res://Enemies/Enemy.gd"
 
 const EnemyGun = preload("res://Guns/Pistol.tscn")
-# This is always true?
 const SPAWN_WITH_GUN = true
+
+enum {
+	PATROL,
+	SEEKING_PLAYER
+}
+
 export var ROTATION_SPEED := 100.0
 
 var enemyGun = null
+var state = PATROL
 
 onready var tween = $Tween
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var animationPlayer = $AnimationPlayer
+onready var seekPlayerTimer = $SeekPlayerTimer
+onready var patrolPoints = $PatrolPoints
 
 func _ready():
 	if SPAWN_WITH_GUN:
 		spawnEnemyGun()
-
+	var initialDirection = patrolPoints.start_patrol()
+	if initialDirection != null:
+		turn(initialDirection)
+		
 func _physics_process(delta):
-	if playerDetectionZone.isAwareOfPlayer():
-		var playerPosition = playerDetectionZone.getPlayerPosition()
+	seek_player()
+	
+func seek_player():
+	var target = playerDetectionZone.getTarget()
+	if target != null:
+		end_patrol()
+		var playerPosition = target.global_position
 		turn(playerPosition)
 		if enemyGun != null and enemyGun.canFire():
 			enemyGun.fire(playerPosition)
 			animationPlayer.play("Firing")
-	
+
+func end_patrol():
+	state = SEEKING_PLAYER
+	seekPlayerTimer.start()
+	patrolPoints.stop_patrol()
+
 func turn(targetPosition):
 	var initial_transform = Vector2(global_position.x, global_position.y)
 	var duration = abs(targetPosition.x - initial_transform.x) / ROTATION_SPEED
@@ -35,3 +56,11 @@ func spawnEnemyGun():
 	enemyGun = EnemyGun.instance()
 	enemyGun.pickup(self, 3, false)
 	enemyGun.ammoCount
+
+func _on_PatrolPoints_new_patrol_point(newPoint):
+	if state == PATROL:
+		turn(newPoint)
+
+func _on_SeekPlayerTimer_timeout():
+	state = PATROL
+	patrolPoints.start_patrol()
