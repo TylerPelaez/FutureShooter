@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Menu/TitleMenu.gd" type="Script" id=1]
 [ext_resource path="res://chary___.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Menu/De-Sync.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.184314, 0.494118, 0.513726, 1 )
@@ -19,6 +20,23 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=5]
 size = 20
 font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "LogoFlash"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Logo:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -66,4 +84,12 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Logo" type="Sprite" parent="."]
+position = Vector2( 156.381, 47.2709 )
+texture = ExtResource( 3 )
+hframes = 2
+
+[node name="LogoAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/LogoFlash = SubResource( 6 )
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
