@@ -1,0 +1,8 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://SFX/SoundEffects.tscn" type="PackedScene" id=1]
+[ext_resource path="res://SFX/bulletimpact2.wav" type="AudioStream" id=2]
+[ext_resource path="res://SFX/bulletimpact1.wav" type="AudioStream" id=3]
+
+[node name="BulletImpactSoundEffects" instance=ExtResource( 1 )]
+audio_files = [ ExtResource( 3 ), ExtResource( 2 ) ]

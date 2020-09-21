@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://HologramPlayer/InputReplayer.gd" type="Script" id=1]
 [ext_resource path="res://HologramPlayer/Holo_Head.png" type="Texture" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://HologramPlayer/Holo_Feet.png" type="Texture" id=5]
 [ext_resource path="res://HologramPlayer/HologramPlayer.gd" type="Script" id=6]
 [ext_resource path="res://HologramPlayer/Holo_Body.png" type="Texture" id=7]
+[ext_resource path="res://SFX/SoundEffects.tscn" type="PackedScene" id=8]
+[ext_resource path="res://SFX/hologramdeath2.wav" type="AudioStream" id=9]
+[ext_resource path="res://SFX/hologramdeath3.wav" type="AudioStream" id=10]
+[ext_resource path="res://SFX/hologramdeath.wav" type="AudioStream" id=11]
 
 [sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/Holo_Torso.png-73fff6b2c41e4d88926acb6c6ad17482.stex"
@@ -487,6 +491,10 @@ autoplay = "SetVisible"
 anims/DeathAnimation1 = SubResource( 14 )
 anims/DeathAnimation2 = SubResource( 15 )
 anims/SetVisible = SubResource( 16 )
+
+[node name="SoundEffects" parent="." instance=ExtResource( 8 )]
+volume_db = -27.306
+audio_files = [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="area_entered" from="GunPickupRange" to="." method="_on_GunPickupRange_area_entered"]
 [connection signal="area_exited" from="GunPickupRange" to="." method="_on_GunPickupRange_area_exited"]

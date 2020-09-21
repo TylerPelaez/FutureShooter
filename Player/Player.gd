@@ -34,7 +34,7 @@ onready var speed = MAX_SPEED
 func _ready():
 	recorder.start_recording()
 	if SPAWN_WITH_GUN:
-		pickupPlayerGun(PlayerGun.instance())
+		pickupPlayerGun(PlayerGun.instance(), false)
 
 func _physics_process(delta):
 	if dying:
@@ -54,11 +54,11 @@ func _physics_process(delta):
 	
 	if not throwingGun and Input.is_action_just_pressed("interact"):
 		if playerGun == null and !overlappingGuns.empty():
-			pickupPlayerGun(overlappingGuns[0])
+			pickupPlayerGun(overlappingGuns[0], true)
 		elif playerGun != null and !overlappingGuns.empty():
 			var gunToPickup = overlappingGuns[0]
 			dropPlayerGun()
-			pickupPlayerGun(gunToPickup)
+			pickupPlayerGun(gunToPickup, true)
 		elif playerGun != null:
 			dropPlayerGun()
 	
@@ -102,15 +102,15 @@ func moveCameraFollow():
 	cameraFollow.global_position = global_position + midpoint
 
 func updateShooting():
-	if playerGun != null and Input.is_action_pressed("fire") and playerGun.canFire():
+	if playerGun != null and Input.is_action_pressed("fire") and playerGun.canFire(true):
 		recorder.log_shot(get_global_mouse_position())
 		playerGun.fire(get_global_mouse_position())
 		torsoAnimationPlayer.play("HoldingGunFiring")
 		headAnimationPlayer.play("FiringHead")
 
-func pickupPlayerGun(instance):
+func pickupPlayerGun(instance, playSFX):
 	if playerGun == null:
-		instance.pickup(self, 2, true)
+		instance.pickup(self, 2, true, playSFX)
 		playerGun = instance
 		torsoAnimationPlayer.play("HoldingGunIdle")
 		overlappingGuns.erase(instance)

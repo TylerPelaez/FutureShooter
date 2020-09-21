@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hologramdeath.wav-cf729ce1ca2f3677b75a3786d74a0429.sample"
+
+[deps]
+
+source_file="res://SFX/hologramdeath.wav"
+dest_files=[ "res://.import/hologramdeath.wav-cf729ce1ca2f3677b75a3786d74a0429.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -29,10 +29,11 @@ onready var headSpriteDefaultRotation = headSprite.rotation
 onready var blood = load("res://Particles/HologramBlood.tscn")
 onready var replayer = $Replayer
 onready var playerStats = $PlayerStats
+onready var soundEffects = $SoundEffects
 
 func _ready():
 	if SPAWN_WITH_GUN:		
-		pickupPlayerGun(PlayerGun.instance())
+		pickupPlayerGun(PlayerGun.instance(), false)
 
 func _physics_process(delta):
 	if dying:
@@ -51,11 +52,11 @@ func _physics_process(delta):
 	
 	if not throwingGun and replayer.get_gun_dropped():
 		if playerGun == null and !overlappingGuns.empty():
-			pickupPlayerGun(overlappingGuns[0])
+			pickupPlayerGun(overlappingGuns[0], true)
 		elif playerGun != null and !overlappingGuns.empty():
 			var gunToPickup = overlappingGuns[0]
 			dropPlayerGun()
-			pickupPlayerGun(gunToPickup)
+			pickupPlayerGun(gunToPickup, true)
 		elif playerGun != null:
 			dropPlayerGun()
 			
@@ -68,7 +69,7 @@ func _physics_process(delta):
 	# If the player originally fired at this time, and the hologram can fire,
 	# shoot a bullet!
 	var shot_fired = replayer.get_shots_fired()
-	if playerGun != null and shot_fired and playerGun.canFire():
+	if playerGun != null and shot_fired and playerGun.canFire(true):
 		playerGun.fire(shot_fired)
 		torsoAnimationPlayer.play("HoldingGunFiring")
 		headAnimationPlayer.play("FiringHead")
@@ -93,9 +94,9 @@ func update_animation(input_vector):
 func move():
 	velocity = move_and_slide(velocity)
 
-func pickupPlayerGun(instance):
+func pickupPlayerGun(instance, playSFX):
 	if playerGun == null:
-		instance.pickup(self, 2, true)
+		instance.pickup(self, 2, true, playSFX)
 		playerGun = instance
 		torsoAnimationPlayer.play("HoldingGunIdle")
 		overlappingGuns.erase(instance)
@@ -123,6 +124,7 @@ func finishPlayerThrow():
 func _on_PlayerStats_player_died():
 	dropPlayerGun()
 	dying = true
+	soundEffects.play_random()
 	var animationIndex = randi() % 2 + 1
 	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
 

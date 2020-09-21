@@ -39,7 +39,7 @@ func move():
 	else:
 		velocity = tempVelocity
 
-func canFire():
+func canFire(playSFX):
 	return (!usesAmmo or ammoCount > 0) and fireTimer.time_left <= 0
 
 func fire(targetPosition):
@@ -56,7 +56,7 @@ func instantiateProjectile(targetPosition):
 	projectile.rotation = projectile.velocity.angle()
 	projectile.setMask(mask)
 
-func pickup(newParent, newMask, useAmmo):
+func pickup(newParent, newMask, useAmmo, playSFX):
 	if get_parent() != null:
 		get_parent().remove_child(self)
 	newParent.add_child(self)
