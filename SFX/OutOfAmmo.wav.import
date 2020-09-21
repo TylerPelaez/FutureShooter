@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/OutOfAmmo.wav-603f5c105e20fe4c07afff738b5fd60f.sample"
+
+[deps]
+
+source_file="res://SFX/OutOfAmmo.wav"
+dest_files=[ "res://.import/OutOfAmmo.wav-603f5c105e20fe4c07afff738b5fd60f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

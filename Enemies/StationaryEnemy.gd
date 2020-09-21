@@ -37,7 +37,7 @@ func seek_player():
 		end_patrol()
 		var playerPosition = target.global_position
 		turn(playerPosition)
-		if enemyGun != null and enemyGun.canFire():
+		if enemyGun != null and enemyGun.canFire(false):
 			enemyGun.fire(playerPosition)
 			animationPlayer.play("Firing")
 
@@ -56,7 +56,7 @@ func turn(targetPosition):
 	
 func spawnEnemyGun():
 	enemyGun = EnemyGun.instance()
-	enemyGun.pickup(self, 3, false)
+	enemyGun.pickup(self, 3, false, true)
 	enemyGun.ammoCount
 
 func _on_PatrolPoints_new_patrol_point(newPoint):
