@@ -144,6 +144,7 @@ func finishPlayerThrow():
 func _on_PlayerStats_player_died():
 	dying = true
 	dropPlayerGun()
+	Events.emit_signal("add_screenshake", 0.1, 0.3 )
 	var animationIndex = randi() % 2 + 1
 	deathAnimationPlayer.play("DeathAnimation" + str(animationIndex))
 	

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Level.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemies/PatrolPoint.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Terrain/Crate/Crate.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Terrain/Electrical Box/ElectricalBox.tscn" type="PackedScene" id=6]
 
 [node name="Level1" instance=ExtResource( 2 )]
 LEVEL_NUMBER = 1
@@ -26,6 +28,12 @@ position = Vector2( 208, 56 )
 
 [node name="PatrolPoint2" parent="StationaryEnemy/PatrolPoints" index="1" instance=ExtResource( 3 )]
 position = Vector2( 144, 144 )
+
+[node name="Node2D" parent="." index="7" instance=ExtResource( 6 )]
+position = Vector2( 220, 160 )
+
+[node name="Crate" parent="." index="8" instance=ExtResource( 5 )]
+position = Vector2( 176, 67 )
 
 [editable path="StationaryEnemy"]
 

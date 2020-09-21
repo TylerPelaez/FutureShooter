@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Terrain/Forklift/Forklift.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Terrain/Crate/Crate.tscn" type="PackedScene" id=5]
 
 [node name="Level3" instance=ExtResource( 3 )]
 levelBackgroundColor = "#0a4b4d"
@@ -26,3 +28,14 @@ rotation = 3.14159
 
 [node name="StationaryEnemy2" parent="." index="6" instance=ExtResource( 2 )]
 position = Vector2( 312, 24 )
+
+[node name="Forklift" parent="." index="8" instance=ExtResource( 4 )]
+position = Vector2( 85, 130 )
+rotation = 0.523598
+
+[node name="Crate" parent="." index="9" instance=ExtResource( 5 )]
+position = Vector2( 274, 99 )
+rotation = 0.523598
+
+[node name="Crate2" parent="." index="10" instance=ExtResource( 5 )]
+position = Vector2( 260, 114 )

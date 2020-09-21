@@ -29,6 +29,7 @@ config/icon="res://icon.png"
 Utils="*res://Utils.gd"
 PersistentRecordedInput="*res://PersistentRecordedInput.gd"
 BackgroundMusic="*res://SFX/BackgroundMusic.tscn"
+Events="*res://Events.gd"
 
 [display]
 

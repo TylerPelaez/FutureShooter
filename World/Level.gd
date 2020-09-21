@@ -140,8 +140,6 @@ func _on_Enemy_died(enemy):
 			victoryTimer.start()
 
 
-	
-
 func _on_VictoryTimer_timeout():
 	winLevel()
 
