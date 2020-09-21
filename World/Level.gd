@@ -10,7 +10,7 @@ enum WIN_CONDITION {
 }
 
 
-export var levelBackgroundColor := "#57142e"
+export var levelBackgroundColor := "#973f3f"
 export (WIN_CONDITION) var winCondition = WIN_CONDITION.KILL_ALL
 export var SPAWN_PLAYER_WITH_GUN := false
 export var LEVEL_NUMBER := 0
@@ -39,9 +39,14 @@ var recorder = null
 var enemies = []
 var playerDied = false
 
+signal de_sync
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	VisualServer.set_default_clear_color(Color(levelBackgroundColor))
+	
+	for N in self.get_children():
+		self.connect("de_sync", N, "_on_de_sync")
 	
 	if winCondition == WIN_CONDITION.KILL_ALL:
 		for child in get_children():
@@ -61,6 +66,8 @@ func _ready():
 			var is_cell_transposed = tilemap.is_cell_transposed(cell.x, cell.y)
 			
 			tilemap.set_cell(cell.x, cell.y, 1, is_x_flipped, is_y_flipped, is_cell_transposed, autoTileCoord)
+			
+		emit_signal("de_sync")
 			
 		spawnHologram(PersistentRecordedInput.get_state())
 		PersistentRecordedInput.clear_state()

@@ -1,0 +1,148 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Terrain/Crate/Crate.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Terrain/Electrical Box/ElectricalBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Terrain/Forklift/Forklift.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Enemies/PatrolPoint.tscn" type="PackedScene" id=7]
+
+[node name="Level4" instance=ExtResource( 3 )]
+levelBackgroundColor = "#0a4b4d"
+LEVEL_NUMBER = 4
+
+[node name="Camera" parent="." index="0"]
+position = Vector2( 111, 41 )
+
+[node name="SpawnPoint" parent="." index="1"]
+position = Vector2( 103.392, 109.756 )
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( -786431, 0, 0, -786430, 0, 1, -786429, 0, 1, -786428, 0, 1, -786427, 0, 1, -786426, 0, 1, -786425, 0, 2, -655361, 0, 196611, -720895, 0, 65536, -720894, 0, 65537, -720893, 0, 65537, -720892, 0, 65537, -720891, 0, 65537, -720890, 0, 65537, -720889, 0, 65538, -720887, 0, 196611, -655359, 0, 65536, -655358, 0, 65537, -655357, 0, 65541, -655356, 0, 131073, -655355, 0, 65542, -655354, 0, 65537, -655353, 0, 65538, -524289, 0, 196611, -589823, 0, 65536, -589822, 0, 65541, -589821, 0, 131074, -589819, 0, 65536, -589818, 0, 65537, -589817, 0, 65538, -589815, 0, 196611, -524287, 0, 65536, -524286, 0, 65538, -524284, 0, 0, -524283, 0, 131078, -524282, 0, 65537, -524281, 0, 65538, -458752, 0, 0, -458751, 0, 131078, -458750, 0, 131077, -458749, 0, 1, -458748, 0, 131078, -458747, 0, 65537, -458746, 0, 65537, -458745, 0, 131077, -458744, 0, 1, -458743, 0, 1, -458742, 0, 1, -458741, 0, 1, -458740, 0, 1, -458739, 0, 2, -327682, 0, 196611, -393216, 0, 65536, -393215, 0, 65541, -393214, 0, 131073, -393213, 0, 131073, -393212, 0, 131073, -393211, 0, 65542, -393210, 0, 65537, -393209, 0, 65541, -393208, 0, 131073, -393207, 0, 131073, -393206, 0, 131073, -393205, 0, 65542, -393204, 0, 65537, -393203, 0, 65538, -393201, 0, 196611, -327680, 0, 65536, -327679, 0, 65538, -327675, 0, 65536, -327674, 0, 65537, -327673, 0, 65538, -327669, 0, 131072, -327668, 0, 65542, -327667, 0, 65538, -196610, 0, 196611, -262144, 0, 65536, -262143, 0, 65538, -262141, 0, 0, -262140, 0, 1, -262139, 0, 131078, -262138, 0, 65537, -262137, 0, 65538, -262132, 0, 65536, -262131, 0, 65538, -262129, 0, 196611, -196608, 0, 65536, -196607, 0, 131077, -196606, 0, 1, -196605, 0, 131078, -196604, 0, 65537, -196603, 0, 65537, -196602, 0, 65537, -196601, 0, 131077, -196600, 0, 1, -196599, 0, 1, -196598, 0, 1, -196597, 0, 1, -196596, 0, 131078, -196595, 0, 65538, -65538, 0, 196611, -131072, 0, 65536, -131071, 0, 65541, -131070, 0, 131073, -131069, 0, 131073, -131068, 0, 131073, -131067, 0, 65542, -131066, 0, 65537, -131065, 0, 65537, -131064, 0, 65541, -131063, 0, 131073, -131062, 0, 65544, -131061, 0, 131073, -131060, 0, 65542, -131059, 0, 65538, -131057, 0, 196611, -65536, 0, 65536, -65535, 0, 65538, -65531, 0, 65536, -65530, 0, 65537, -65529, 0, 65537, -65528, 0, 65538, -65526, 0, 65539, -65524, 0, 65536, -65523, 0, 65538, 65534, 0, 196611, 0, 0, 65536, 1, 0, 65538, 4, 0, 0, 5, 0, 131078, 6, 0, 65537, 7, 0, 65537, 8, 0, 65538, 10, 0, 65539, 12, 0, 65536, 13, 0, 65538, 15, 0, 196611, 65536, 0, 65536, 65537, 0, 131077, 65538, 0, 1, 65539, 0, 1, 65540, 0, 131078, 65541, 0, 65537, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 131077, 65545, 0, 1, 65546, 0, 131080, 65547, 0, 1, 65548, 0, 131078, 65549, 0, 65538, 196606, 0, 4, 196607, 0, 196609, 131072, 0, 262150, 131073, 0, 65537, 131074, 0, 65537, 131075, 0, 65537, 131076, 0, 65537, 131077, 0, 65537, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 262149, 131086, 0, 196609, 131087, 0, 7, 262142, 0, 65539, 196608, 0, 131072, 196609, 0, 65544, 196610, 0, 131073, 196611, 0, 131073, 196612, 0, 131073, 196613, 0, 65542, 196614, 0, 65537, 196615, 0, 65541, 196616, 0, 131073, 196617, 0, 131073, 196618, 0, 131073, 196619, 0, 65544, 196620, 0, 131073, 196621, 0, 65543, 196623, 0, 65539, 327678, 0, 131076, 327679, 0, 2, 262145, 0, 65539, 262149, 0, 65536, 262150, 0, 65537, 262151, 0, 65538, 262155, 0, 65539, 262157, 0, 131076, 262158, 0, 1, 262159, 0, 131079, 393214, 0, 131072, 393215, 0, 196613, 327680, 0, 196609, 327681, 0, 196615, 327683, 0, 196611, 327685, 0, 65536, 327686, 0, 65537, 327687, 0, 65538, 327689, 0, 196611, 327691, 0, 196612, 327692, 0, 196609, 327693, 0, 196614, 327694, 0, 131073, 327695, 0, 131074, 393221, 0, 65536, 393222, 0, 65537, 393223, 0, 65538, 458755, 0, 196611, 458757, 0, 131072, 458758, 0, 131073, 458759, 0, 131074, 458761, 0, 196611 )
+
+[node name="Crate" parent="." index="3" instance=ExtResource( 1 )]
+position = Vector2( 93.7108, 29.8185 )
+rotation = 0.6353
+
+[node name="Crate2" parent="." index="4" instance=ExtResource( 1 )]
+position = Vector2( 113.368, 74.6858 )
+
+[node name="Pistol" parent="." index="7" instance=ExtResource( 5 )]
+position = Vector2( 113.122, 91.1553 )
+
+[node name="Node2D" parent="." index="8" instance=ExtResource( 6 )]
+position = Vector2( 64.6202, -43.2031 )
+
+[node name="Node2D" parent="Node2D" index="2" instance=ExtResource( 4 )]
+position = Vector2( 143.42, -57.4134 )
+
+[node name="Node2D2" parent="." index="9" instance=ExtResource( 6 )]
+position = Vector2( 33.4057, -163.691 )
+
+[node name="Node2D3" parent="." index="10" instance=ExtResource( 4 )]
+position = Vector2( 171.465, 29.2424 )
+
+[node name="Crate3" parent="." index="11" instance=ExtResource( 1 )]
+position = Vector2( 113.936, -121.758 )
+
+[node name="Node2D4" parent="." index="12" instance=ExtResource( 6 )]
+position = Vector2( -16.5203, 89.0936 )
+
+[node name="Node2D5" parent="." index="13" instance=ExtResource( 4 )]
+position = Vector2( 232.705, 80.1139 )
+
+[node name="Node2D7" parent="." index="14" instance=ExtResource( 6 )]
+position = Vector2( 78.1682, -110.496 )
+
+[node name="StationaryEnemy" parent="." index="15" instance=ExtResource( 2 )]
+position = Vector2( 81.0612, 14.8013 )
+rotation = 2.41205
+
+[node name="StationaryEnemy2" parent="." index="16" instance=ExtResource( 2 )]
+position = Vector2( 208.205, 47.1712 )
+rotation = 3.42783
+
+[node name="PatrolPoint" parent="StationaryEnemy2/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 207.161, 12.4654 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy2/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 144.09, 48.1723 )
+
+[node name="StationaryEnemy3" parent="." index="17" instance=ExtResource( 2 )]
+position = Vector2( 13.9402, -31.6053 )
+
+[node name="PatrolPoint" parent="StationaryEnemy3/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 15.9425, -61.6392 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy3/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 67.6675, -31.6053 )
+
+[node name="PatrolPoint3" parent="StationaryEnemy3/PatrolPoints" index="2" instance=ExtResource( 7 )]
+position = Vector2( 14.6076, -0.236572 )
+
+[node name="StationaryEnemy4" parent="." index="18" instance=ExtResource( 2 )]
+position = Vector2( 204.888, -32.5255 )
+
+[node name="PatrolPoint" parent="StationaryEnemy4/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 171.616, -32.9974 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy4/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 208.899, -57.7741 )
+
+[node name="PatrolPoint3" parent="StationaryEnemy4/PatrolPoints" index="2" instance=ExtResource( 7 )]
+position = Vector2( 207.247, -4.44524 )
+
+[node name="StationaryEnemy6" parent="." index="19" instance=ExtResource( 2 )]
+position = Vector2( 64.6506, -96.3443 )
+rotation = 2.53945
+scale = Vector2( 1, 1 )
+
+[node name="PatrolPoint" parent="StationaryEnemy6/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 32.378, -96.5826 )
+rotation = 2.53945
+scale = Vector2( 1, 1 )
+
+[node name="StationaryEnemy5" parent="." index="20" instance=ExtResource( 2 )]
+position = Vector2( 114.279, -148.939 )
+rotation = 2.53945
+
+[node name="PatrolPoint" parent="." index="21" instance=ExtResource( 7 )]
+position = Vector2( 94.2499, -95.8755 )
+
+[node name="Node2D6" parent="." index="22" instance=ExtResource( 4 )]
+position = Vector2( 110.154, -179.71 )
+
+[node name="StationaryEnemy7" parent="." index="23" instance=ExtResource( 2 )]
+position = Vector2( 71.9474, -158.359 )
+
+[node name="Collider" parent="StationaryEnemy7" index="0"]
+visible = true
+
+[node name="Hurtbox" parent="StationaryEnemy7" index="1"]
+visible = true
+
+[node name="PlayerDetectionZone" parent="StationaryEnemy7" index="3"]
+position = Vector2( -0.374573, 0.749161 )
+
+[node name="PatrolPoint" parent="StationaryEnemy7/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 107.532, -157.61 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy7/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 72.6965, -178.212 )
+
+[node name="PatrolPoint3" parent="StationaryEnemy7/PatrolPoints" index="2" instance=ExtResource( 7 )]
+position = Vector2( 31.4931, -156.486 )
+
+[node name="Pistol2" parent="." index="24" instance=ExtResource( 5 )]
+position = Vector2( 110.07, 112.343 )
+
+[editable path="StationaryEnemy2"]
+
+[editable path="StationaryEnemy3"]
+
+[editable path="StationaryEnemy4"]
+
+[editable path="StationaryEnemy6"]
+
+[editable path="StationaryEnemy7"]

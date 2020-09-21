@@ -1,0 +1,154 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Terrain/Crate/Crate.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Terrain/Electrical Box/ElectricalBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enemies/PatrolPoint.tscn" type="PackedScene" id=7]
+
+[node name="Level5" instance=ExtResource( 3 )]
+levelBackgroundColor = "#0a4b4d"
+LEVEL_NUMBER = 5
+
+[node name="Camera" parent="." index="0"]
+position = Vector2( 111, 41 )
+
+[node name="SpawnPoint" parent="." index="1"]
+position = Vector2( 37.5149, 91.5009 )
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( -196607, 0, 0, -196606, 0, 1, -196605, 0, 1, -196604, 0, 1, -196603, 0, 1, -196602, 0, 1, -196601, 0, 1, -196600, 0, 1, -196599, 0, 1, -196598, 0, 1, -196597, 0, 1, -196596, 0, 1, -196595, 0, 1, -196594, 0, 1, -196593, 0, 2, -131071, 0, 65536, -131070, 0, 65537, -131069, 0, 65537, -131068, 0, 65537, -131067, 0, 65537, -131066, 0, 65537, -131065, 0, 65537, -131064, 0, 65537, -131063, 0, 65537, -131062, 0, 65537, -131061, 0, 65537, -131060, 0, 65537, -131059, 0, 65537, -131058, 0, 65537, -131057, 0, 65538, -65535, 0, 65536, -65534, 0, 65537, -65533, 0, 65537, -65532, 0, 65537, -65531, 0, 65537, -65530, 0, 65537, -65529, 0, 65537, -65528, 0, 65537, -65527, 0, 65537, -65526, 0, 65537, -65525, 0, 65537, -65524, 0, 65537, -65523, 0, 65537, -65522, 0, 65537, -65521, 0, 65538, 0, 0, 0, 1, 0, 131078, 2, 0, 65537, 3, 0, 65537, 4, 0, 65537, 5, 0, 65537, 6, 0, 65537, 7, 0, 65537, 8, 0, 65537, 9, 0, 65537, 10, 0, 65537, 11, 0, 65537, 12, 0, 65537, 13, 0, 65537, 14, 0, 65537, 15, 0, 131077, 16, 0, 2, 65536, 0, 65536, 65537, 0, 65537, 65538, 0, 65537, 65539, 0, 65537, 65540, 0, 65537, 65541, 0, 65537, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65538, 131072, 0, 131072, 131073, 0, 65542, 131074, 0, 65537, 131075, 0, 65537, 131076, 0, 65537, 131077, 0, 65537, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65541, 131088, 0, 131074, 196609, 0, 65536, 196610, 0, 65537, 196611, 0, 65537, 196612, 0, 65537, 196613, 0, 65537, 196614, 0, 65537, 196615, 0, 65537, 196616, 0, 65537, 196617, 0, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65538, 262145, 0, 65536, 262146, 0, 65537, 262147, 0, 65537, 262148, 0, 65537, 262149, 0, 65537, 262150, 0, 65537, 262151, 0, 65537, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65538, 327681, 0, 65536, 327682, 0, 65537, 327683, 0, 65537, 327684, 0, 65537, 327685, 0, 65537, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65538, 393217, 0, 131072, 393218, 0, 131073, 393219, 0, 131073, 393220, 0, 131073, 393221, 0, 131073, 393222, 0, 65542, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65537, 393226, 0, 65541, 393227, 0, 131073, 393228, 0, 131073, 393229, 0, 131073, 393230, 0, 131073, 393231, 0, 131074, 458758, 0, 131072, 458759, 0, 131073, 458760, 0, 131073, 458761, 0, 131073, 458762, 0, 131074 )
+
+[node name="Crate" parent="." index="3" instance=ExtResource( 1 )]
+position = Vector2( 62.6244, 94.2134 )
+
+[node name="Node2D2" parent="." index="4" instance=ExtResource( 4 )]
+position = Vector2( 251.256, 15.3529 )
+
+[node name="Crate2" parent="." index="7" instance=ExtResource( 1 )]
+position = Vector2( 62.6191, 77.1596 )
+
+[node name="Crate3" parent="." index="8" instance=ExtResource( 1 )]
+position = Vector2( 79.8626, 85.1867 )
+
+[node name="Crate4" parent="." index="9" instance=ExtResource( 1 )]
+position = Vector2( 186.297, 88.7543 )
+
+[node name="Crate9" parent="." index="10" instance=ExtResource( 1 )]
+position = Vector2( 79.5653, -32.8421 )
+rotation = -1.35088
+
+[node name="Crate13" parent="." index="11" instance=ExtResource( 1 )]
+position = Vector2( 125.944, -11.1391 )
+rotation = -1.60396
+
+[node name="Crate14" parent="." index="12" instance=ExtResource( 1 )]
+position = Vector2( 71.5381, 22.456 )
+rotation = -1.60396
+
+[node name="Crate15" parent="." index="13" instance=ExtResource( 1 )]
+position = Vector2( 179.459, -12.3283 )
+rotation = -1.60396
+
+[node name="Crate16" parent="." index="14" instance=ExtResource( 1 )]
+position = Vector2( 180.053, 5.21253 )
+rotation = -1.60396
+
+[node name="Crate17" parent="." index="15" instance=ExtResource( 1 )]
+position = Vector2( 181.837, 23.3479 )
+rotation = -1.60396
+
+[node name="Crate12" parent="." index="16" instance=ExtResource( 1 )]
+position = Vector2( 77.1868, -12.6256 )
+rotation = -1.60396
+
+[node name="Crate11" parent="." index="17" instance=ExtResource( 1 )]
+position = Vector2( 121.782, -31.9502 )
+rotation = -1.60396
+
+[node name="Crate10" parent="." index="18" instance=ExtResource( 1 )]
+position = Vector2( 99.4845, -28.9772 )
+rotation = -1.35088
+
+[node name="Crate5" parent="." index="19" instance=ExtResource( 1 )]
+position = Vector2( 200.567, 71.8081 )
+rotation = -1.35088
+
+[node name="Crate6" parent="." index="20" instance=ExtResource( 1 )]
+position = Vector2( 178.269, 66.4567 )
+rotation = 2.28464
+
+[node name="Node2D" parent="." index="21" instance=ExtResource( 4 )]
+position = Vector2( 36.0543, -33.6425 )
+
+[node name="StationaryEnemy" parent="." index="22" instance=ExtResource( 2 )]
+position = Vector2( 96.7486, 94.1084 )
+
+[node name="PatrolPoint" parent="StationaryEnemy/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 97.416, 70.7487 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 131.788, 97.1118 )
+
+[node name="StationaryEnemy3" parent="." index="23" instance=ExtResource( 2 )]
+position = Vector2( 102.088, -10.3428 )
+rotation = -5.33024
+
+[node name="PatrolPoint4" parent="StationaryEnemy3/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 102.755, 21.6934 )
+
+[node name="PatrolPoint3" parent="StationaryEnemy3/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 68.0495, 16.6877 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy3/PatrolPoints" index="2" instance=ExtResource( 7 )]
+position = Vector2( 102.422, 36.7103 )
+
+[node name="PatrolPoint" parent="StationaryEnemy3/PatrolPoints" index="3" instance=ExtResource( 7 )]
+position = Vector2( 132.122, 18.0226 )
+
+[node name="StationaryEnemy2" parent="." index="24" instance=ExtResource( 2 )]
+position = Vector2( 235.238, 96.4444 )
+rotation = -1.77675
+
+[node name="StationaryEnemy4" parent="." index="25" instance=ExtResource( 2 )]
+position = Vector2( 249.588, 31.371 )
+rotation = 2.53945
+scale = Vector2( 1, 1 )
+
+[node name="PatrolPoint" parent="StationaryEnemy4/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 211.879, 66.0768 )
+rotation = 2.53945
+scale = Vector2( 1, 1 )
+
+[node name="Pistol" parent="." index="26" instance=ExtResource( 5 )]
+position = Vector2( 37.3482, 79.0915 )
+
+[node name="StationaryEnemy5" parent="." index="27" instance=ExtResource( 2 )]
+position = Vector2( 213.547, -31.3665 )
+rotation = 1.63886
+scale = Vector2( 1, 1 )
+
+[node name="PatrolPoint" parent="StationaryEnemy5/PatrolPoints" index="0" instance=ExtResource( 7 )]
+position = Vector2( 215.883, 25.3642 )
+rotation = 1.63886
+scale = Vector2( 1, 1 )
+
+[node name="PatrolPoint2" parent="StationaryEnemy5/PatrolPoints" index="1" instance=ExtResource( 7 )]
+position = Vector2( 155.815, -33.7025 )
+
+[node name="Crate7" parent="." index="28" instance=ExtResource( 1 )]
+position = Vector2( 62.7102, 59.7363 )
+
+[node name="Crate8" parent="." index="29" instance=ExtResource( 1 )]
+position = Vector2( 132.122, 42.3834 )
+
+[editable path="StationaryEnemy"]
+
+[editable path="StationaryEnemy3"]
+
+[editable path="StationaryEnemy2"]
+
+[editable path="StationaryEnemy4"]
+
+[editable path="StationaryEnemy5"]
