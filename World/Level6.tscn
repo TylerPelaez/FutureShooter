@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://chary___.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Enemies/StationaryEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Terrain/Crate/Crate.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Guns/Pistol.tscn" type="PackedScene" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[node name="Level6" instance=ExtResource( 3 )]
+levelBackgroundColor = "#0a4b4d"
+LEVEL_NUMBER = 6
+
+[node name="Camera" parent="." index="0"]
+position = Vector2( 111, 41 )
+
+[node name="SpawnPoint" parent="." index="1"]
+position = Vector2( 121.42, 46.5517 )
+
+[node name="TileMap" parent="." index="2"]
+tile_data = PoolIntArray( 131074, 0, 0, 131075, 0, 1, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, 0, 1, 131080, 0, 1, 131081, 0, 1, 131082, 0, 1, 131083, 0, 1, 131084, 0, 2, 196610, 0, 131072, 196611, 0, 131073, 196612, 0, 131073, 196613, 0, 131073, 196614, 0, 131073, 196615, 0, 131073, 196616, 0, 131073, 196617, 0, 131073, 196618, 0, 131073, 196619, 0, 131073, 196620, 0, 131074, 327685, 0, 0, 327686, 0, 1, 327687, 0, 1, 327688, 0, 2, 393221, 0, 131072, 393222, 0, 131073, 393223, 0, 131073, 393224, 0, 131074 )
+
+[node name="Pistol" parent="." index="4" instance=ExtResource( 5 )]
+position = Vector2( 112.717, 96.3789 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." index="5"]
+
+[node name="Label" type="Label" parent="CanvasLayer2" index="0"]
+margin_left = 92.1459
+margin_top = 14.2339
+margin_right = 148.146
+margin_bottom = 31.2339
+custom_fonts/font = SubResource( 1 )
+text = "YOU WON?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StationaryEnemy" parent="." index="7" instance=ExtResource( 2 )]
+position = Vector2( 47.013, 47.3241 )
+rotation = 2.9723
+
+[node name="StationaryEnemy2" parent="." index="8" instance=ExtResource( 2 )]
+position = Vector2( 191.204, 47.9187 )
+
+[node name="Crate" parent="." index="9" instance=ExtResource( 4 )]
+position = Vector2( 85.6622, 47.9187 )
+
+[node name="Crate2" parent="." index="10" instance=ExtResource( 4 )]
+position = Vector2( 155.825, 48.216 )
+
+[editable path="StationaryEnemy"]
+
+[editable path="StationaryEnemy2"]
