@@ -8,3 +8,7 @@ func _ready():
 
 func _on_Button_pressed():
 	get_tree().change_scene(Utils.get_scene(1))
+
+
+func _on_Instructions_pressed():
+	get_tree().change_scene("res://Menu/TutorialMenu.tscn")
